@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('billing_details', function (Blueprint $table) {
             $table->id();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('company');
+            $table->string('phone_number');
+            $table->string('adress');
+            $table->string('number');
+            $table->string('city');
+            $table->string('zip');
+            $table->string('country_id');
             $table->timestamps();
         });
     }
