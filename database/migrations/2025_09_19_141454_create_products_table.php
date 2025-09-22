@@ -18,7 +18,8 @@ return new class extends Migration
             $table->text('description');
             $table->integer('price');
             $table->integer('stock');
-            
+            $table->foreignId('categorie_id')->constrained('product_categories');
+            $table->foreignId('promotion_id')->nullable()->constrained('promotions')->nullOnDelete();
             $table->timestamps();
         });
     }
