@@ -8,6 +8,6 @@ class Avatar extends Model
 {
     protected $fillable = ['image'];
     public function user(){
-        return $this->hasOne('users');
+        return $this->hasOne(User::class);
     }
 }

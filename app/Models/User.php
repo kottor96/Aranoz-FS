@@ -50,9 +50,12 @@ class User extends Authenticatable
     }
 
     public function role(){
-        return $this->belongsTo('roles'); 
+        return $this->belongsTo(Role::class); 
     }
     public function avatar(){
-        return $this->belongsTo('avatar');
+        return $this->belongsTo(Avatar::class);
+    }
+    public function orders(){
+        return $this->hasMany(Order::class);
     }
 }

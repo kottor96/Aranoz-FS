@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mailling extends Model
 {
-    //
+    protected $fillable = ['email','subject','message','statut','achived'];
 }

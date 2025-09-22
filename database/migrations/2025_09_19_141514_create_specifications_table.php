@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('freshness_duration');
             $table->string('packeting');
             $table->integer('content');
+            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->timestamps();
         });
     }
