@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('maillings', function (Blueprint $table) {
             $table->id();
+            $table->string('email');
+            $table->string('subject');
+            $table->text('message');
+            $table->boolean('statut');
+            $table->boolean('archived');
             $table->timestamps();
         });
     }
