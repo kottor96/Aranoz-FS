@@ -16,7 +16,11 @@ return new class extends Migration
             $table->string('street');
             $table->string('state');
             $table->string('city');
-            $table->foreignId('country_id')->nullable()->constrained('countries')->nullOnDelete();
+            $table->foreignId('country_code');
+            $table->integer('zip_code');
+            $table->integer('number');
+            $table->string('email');
+            $table->string('phone_number');
             $table->timestamps();
         });
     }
