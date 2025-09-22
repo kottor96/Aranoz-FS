@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('blog_tags', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('blog_id')->nullable()->constrained('blogs')->nullOnDelete();
+            $table->foreignId('tag_id')->nullable()->constrained('tags')->nullOnDelete();
             $table->timestamps();
         });
     }
