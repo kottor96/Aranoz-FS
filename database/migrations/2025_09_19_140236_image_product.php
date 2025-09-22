@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('image_products', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->enum('image_main','image_rear','image_left_side','image_right_side','other');
+            $table->enum('type',['image_main','image_rear','image_left_side','image_right_side','other']);
             $table->timestamps();
         });
     }
