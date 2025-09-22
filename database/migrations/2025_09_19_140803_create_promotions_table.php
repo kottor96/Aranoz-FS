@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type',['gratuit','reduction']);
+            $table->enum('type',['free','reduction']);
             $table->integer('min');
             $table->integer('valeur');
             $table->timestamps();
