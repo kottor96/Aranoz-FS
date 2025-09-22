@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('specifications', function (Blueprint $table) {
             $table->id();
+            $table->string('width');
+            $table->string('height');
+            $table->string('deph');
+            $table->string('weight');
+            $table->boolean('quality_checking');
+            $table->integer('freshness_duration');
+            $table->string('packeting');
             $table->timestamps();
         });
     }
