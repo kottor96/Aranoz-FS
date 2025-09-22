@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('quality_checking');
             $table->integer('freshness_duration');
             $table->string('packeting');
+            $table->integer('content');
             $table->timestamps();
         });
     }
