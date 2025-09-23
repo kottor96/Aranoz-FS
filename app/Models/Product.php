@@ -10,8 +10,8 @@ class Product extends Model
     public function specification(){
         return $this->hasOne(Specification::class);
     }
-    public function products(){
-        return $this->hasMany(Product::class);
+    public function likes(){
+        return $this->hasMany(Like::class);
     }
     public function categories(){
         return $this->belongsToMany(Product_categorie::class,'categorie_id');

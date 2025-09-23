@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Promotion extends Model
 {
-    //
+    protected $fillable = ['name','type','min','valeur'];
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }
