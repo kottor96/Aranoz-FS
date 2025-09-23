@@ -22,4 +22,7 @@ class Product extends Model
     public function paniers(){
         return $this->hasMany(Panier::class);
     }
+    public function images(){
+        return $this->hasMany(Image_product::class);
+    }
 }
