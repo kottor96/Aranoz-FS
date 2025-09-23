@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Blog_image extends Model
+{
+    protected $fillable = ['image','blog_id'];
+    public function blog(){
+        return $this->hasOne(Blog::class);
+    }
+}

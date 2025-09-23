@@ -13,4 +13,7 @@ class Blog extends Model
     public function blog_categorie(){
         return $this->belongsTo(Blog_categorie::class);
     }
+    public function image(){
+        return $this->belongsTo(Blog_image::class);
+    }
 }
