@@ -23,7 +23,7 @@ return new class extends Migration
             $table->decimal('total_price', 8, 2);
 
             // images liées au produit
-            $table->string('image_main')->nullable();
+            $table->string('image_main');
             $table->string('image_rear')->nullable();
             $table->string('image_left_side')->nullable();
             $table->string('image_right_side')->nullable();
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->text('description')->nullable();
 
             // promotion ou réduction appliquée
-            $table->foreignId('promo_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('promotion_id')->nullable()->constrained()->onDelete('set null');
 
             $table->timestamps();
         });
