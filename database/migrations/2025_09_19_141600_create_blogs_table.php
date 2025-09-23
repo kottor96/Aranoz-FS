@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->foreignId('blog_categorie_id')->nullable()->constrained('blog_categories')->nullOnDelete();
             $table->text('description');
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }

@@ -14,11 +14,11 @@ class BlogCategorieSeeder extends Seeder
     public function run(): void
     {
         $liste = [
-            ['nom' => 'Travel'],
-            ['nom' => 'Health Care'],
-            ['nom' => 'Discover'],
-            ['nom' => 'Fashion'],
-            ['nom' => 'Business'],
+            ['name' => 'Travel'],
+            ['name' => 'Health Care'],
+            ['name' => 'Discover'],
+            ['name' => 'Fashion'],
+            ['name' => 'Business'],
         ];
         foreach ($liste as $v) {
             Blog_categorie::create($v);
