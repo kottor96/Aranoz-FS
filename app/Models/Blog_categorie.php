@@ -7,4 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Blog_categorie extends Model
 {
     protected $fillable = ['name'];
+    public function blog(){
+        return $this->hasOne(Blog::class)
+    }
 }
