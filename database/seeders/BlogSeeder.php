@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Blog;
+use App\Models\Blog_image;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -33,8 +34,14 @@ class BlogSeeder extends Seeder
                 'user_id' => 1
             ]
         ];
+                        
         foreach($liste as $v){
-            Blog::create($v);
+            
+            $i = Blog::create($v);
+            Blog_image::create([
+                'blog_path' => "storage/blog/m-blog-{$i->id}.jpg",
+                'blog_id' => $i->id,
+            ]);
         }
     }
 }
