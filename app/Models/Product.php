@@ -6,7 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name','color','description','price','stock','categorie_id','promotion_id'];
+    protected $fillable = [
+        'name',
+        'color',
+        'description',
+        'price',
+        'stock',
+        'category_id',
+        'promo',
+        'isPinned',
+        'available',
+    ];
+    
     public function specification(){
         return $this->hasOne(Specification::class);
     }
@@ -16,9 +27,6 @@ class Product extends Model
     public function categories(){
         return $this->belongsToMany(Product_categorie::class,'categorie_id');
     }
-    public function promotions(){
-        return $this->belongsToMany(Promotion::class);
-    } 
     public function paniers(){
         return $this->hasMany(Panier::class);
     }
