@@ -28,13 +28,13 @@ export default function Index() {
                 <h2>Feature Category</h2>
             </div>
             <div id='flex_home'>
-                <div className='flex'>
+                <div className='flex gap-3'>
                     <div className='type1'></div>
                     <div className='type2'></div>
                 </div>
-                <div className='flex'>
-                    <div className='type1'></div>
+                <div className='flex gap-3'>
                     <div className='type2'></div>
+                    <div className='type1'></div>
                 </div>
             </div>
         </section>
