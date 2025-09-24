@@ -38,7 +38,7 @@ export default function Index() {
                 </div>
             </div>
         </section>
-        <section>
+        <section id='troi_section'>
             <div className='flex'>
                 <h3>Asesome</h3>
                 <p>Shop</p>

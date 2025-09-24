@@ -39,7 +39,7 @@ class BlogSeeder extends Seeder
             
             $i = Blog::create($v);
             Blog_image::create([
-                'blog_path' => "storage/blog/m-blog-{$i->id}.jpg",
+                'image' => "storage/blog/m-blog-{$i->id}.jpg",
                 'blog_id' => $i->id,
             ]);
         }
