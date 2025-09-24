@@ -1,0 +1,9 @@
+@use './_mixin' as *
+@use './_variable' as *
+
+#first_section
+    @include first_section($bleu_vert,white,black)
+
+#second_section
+    @include first_section($bg: white,$bg2: $blanc,$color: black)
+    

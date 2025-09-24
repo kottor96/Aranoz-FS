@@ -1,0 +1,36 @@
+@use './_variable' as *
+
+@mixin first_section($bg,$bg2,$color)
+    padding: 10rem
+    color: $color
+    background-color: $bg
+    position: relative
+    h1
+        font-size: 2rem
+        font-weight: 800
+    p
+        font-size: 1rem
+        font-weight: 400
+    
+    
+
+    #sp_home1
+        background-color: $bg2
+        padding: 2rem 4rem 
+        position: absolute
+        bottom: 0
+        border-radius: 5px 5px 0 0 
+        right: 15%
+    
+    #title2
+        text-align: center
+
+    #flex_home
+        .type1
+            flex: 1
+            min-height: 10rem
+            background-color: $bg2
+        .type2
+            flex: 2
+            background-color: $bg2
+            min-height: 10rem

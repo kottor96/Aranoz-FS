@@ -4,9 +4,9 @@ import Layout from '../Layouts/Layout.jsx'
 export default function Index() {
   return (
     <Layout>
-        <section>
-            <div className='flex justify-between mx-10 my-20'>
-                <div>
+        <section id='first_section'>
+            <div className='flex justify-between'>
+                <div id='produitTete'>
                     <div>
                         <h1>Titre</h1>
                     </div>
@@ -18,16 +18,24 @@ export default function Index() {
                     <img src="" alt="une image" />
                 </div>
             </div>
+            <div id='sp_home1' className='flex items-center justify-center gap-3' >
+                <button>Next</button> |
+                <button>Previous</button>
+            </div>
         </section>
-        <section>
-            <div>
+        <section id='second_section'>
+            <div id='title2'>
                 <h2>Feature Category</h2>
             </div>
-            <div className='grid'>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+            <div id='flex_home'>
+                <div className='flex'>
+                    <div className='type1'></div>
+                    <div className='type2'></div>
+                </div>
+                <div className='flex'>
+                    <div className='type1'></div>
+                    <div className='type2'></div>
+                </div>
             </div>
         </section>
         <section>
