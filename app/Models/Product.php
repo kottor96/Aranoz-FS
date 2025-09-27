@@ -24,8 +24,8 @@ class Product extends Model
     public function likes(){
         return $this->hasMany(Like::class);
     }
-    public function categories(){
-        return $this->belongsToMany(Product_categorie::class,'categorie_id');
+    public function category(){
+        return $this->belongsTo(Product_categorie::class,'category_id');
     }
     public function paniers(){
         return $this->hasMany(Panier::class);
