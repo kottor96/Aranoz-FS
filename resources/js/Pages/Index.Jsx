@@ -38,13 +38,22 @@ export default function Index() {
                 </div>
             </div>
         </section>
-        <section id='troi_section'>
+        <section id='trois_section'>
             <div className='flex'>
                 <h3>Asesome</h3>
                 <p>Shop</p>
             </div>
-            <div>
+            <div id='article' className='grid grid-cols-4'>
                 {/* {map} */}
+                <div>
+                    <div>
+                        <img src="" alt="" />
+                    </div>
+                    <div>
+                        <h4></h4>
+                        <p><span></span></p>
+                    </div>
+                </div>
             </div>
         </section>
         <section>
