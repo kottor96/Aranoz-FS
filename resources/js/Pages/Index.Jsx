@@ -17,7 +17,10 @@ export default function Index({products,categories}) {
     }
 
     const chaise = categories.find(cat => cat.name='Chaises');
-    console.log(chaise.products[0].images[0].image);
+    
+    const [i2,setI2] = useState([0])
+    const produitCarousel = [...products].sort(() => Math.random() - 0.5).splice(i2,i2+7) 
+    console.log(produitCarousel);
     
     return (
         <Layout>
@@ -45,18 +48,44 @@ export default function Index({products,categories}) {
                     <h2>Feature Category</h2>
                 </div>
                 <div id='flex_home'>
-                    <div className='flex gap-3'>
-                        <div className='type2'></div>
-                        <div className='type1'></div>
-                    </div>
-                    <div className='flex gap-3'>
-                        <div className='type1'></div>
-                        <div className='type2'>
-                            <div>
+                    <div className='flex gap-4'>
+                        <div className='type2 relative'>
+                            <div className='absolute top-0 left-0'>
                                 <h5>{chaise.name}</h5>
                                 <p>{chaise.products[0]?.name}</p>
                             </div>
-                            <div><img src={`storage/product/${chaise.products[0].images[0].image}`} alt={chaise.products[0].name} /></div>
+                            <div className='absolute bottom-0 right-0'>
+                                <img src={`storage/product/${chaise.products[0].images[0].image}`} alt={chaise.products[0].name} />
+                            </div>
+                        </div>
+                        <div className='type1 relative'>
+                            <div className='absolute top-0 left-0'>
+                                <h5>{chaise.name}</h5>
+                                <p>{chaise.products[0]?.name}</p>
+                            </div>
+                            <div className='absolute bottom-0 right-0'>
+                                <img src={`storage/product/${chaise.products[0].images[0].image}`} alt={chaise.products[0].name} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className='flex gap-4'>
+                        <div className='type1 relative'>
+                            <div className='absolute top-0 left-0'>
+                                <h5>{chaise.name}</h5>
+                                <p>{chaise.products[0]?.name}</p>
+                            </div>
+                            <div className='absolute bottom-0 right-0'>
+                                <img src={`storage/product/${chaise.products[0].images[0].image}`} alt={chaise.products[0].name} />
+                            </div>
+                        </div>
+                        <div className='type2 relative'>
+                            <div className='absolute top-0 left-0'>
+                                <h5>{chaise.name}</h5>
+                                <p>{chaise.products[0]?.name}</p>
+                            </div>
+                            <div className='absolute bottom-0 right-0'>
+                                <img src={`storage/product/${chaise.products[0].images[0].image}`} alt={chaise.products[0].name} />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,16 +96,22 @@ export default function Index({products,categories}) {
                     <p>Shop</p>
                 </div>
                 <div id='article' className='grid grid-cols-4'>
-                    {/* {map} */}
-                    <div>
-                        <div>
-                            <img src="" alt="" />
+                    { produitCarousel.map(product=>(
+                        
+                        <div key={product.id}>
+                            <div>
+                                <img src={product.images.image} alt="" />
+                            </div>
+                            <div>
+                                <h4>{product.name}</h4>
+                                {product.promo != null?
+                                    <p><span></span></p>
+                                    :
+                                    <p>{product.price}</p>
+                                }
+                            </div>
                         </div>
-                        <div>
-                            <h4></h4>
-                            <p><span></span></p>
-                        </div>
-                    </div>
+                    )) }
                 </div>
             </section>
             <section>
