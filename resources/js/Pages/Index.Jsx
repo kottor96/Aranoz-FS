@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import Layout from '../Layouts/Layout.jsx'
 
-export default function Index({products,categories}) {
+export default function Index({products, categories, maxSeconds, startTimestamp, updateInterval}) {
 
-    const randomProduct = [...products].sort(() => Math.random() - 0.5).splice(0,4);
+    const randomProduct = useMemo(() => [...products].sort(() => Math.random() - 0.5).splice(0,4), [products]);
     const [i,setI] = useState(0);
     const afficheProd = randomProduct[i];
     const imageDefault = afficheProd.images.find(img => img.type === "image_main");
@@ -15,13 +15,40 @@ export default function Index({products,categories}) {
             setI(prev => prev - 1);
         }
     }
+    
+    const chaise = categories.find(cat => cat.name === 'Chaises');
 
-    const chaise = categories.find(cat => cat.name='Chaises');
-    
-    const [i2,setI2] = useState([0])
-    const produitCarousel = [...products].sort(() => Math.random() - 0.5).splice(i2,i2+7) 
-    console.log(produitCarousel);
-    
+    const [i2,setI2] = useState(0);
+
+    const produitCarousel = useMemo(() => [...products].sort(() => Math.random() - 0.5).splice(i2,8), [products, i2]);
+
+    function changeProduct2(arg) {
+        if(arg === '+' && i2 < products.length - 8){
+            setI2(prev => prev + 8);
+        } else if(arg === '-' && i2 > 0){
+            setI2(prev => prev - 8);
+        }
+    }
+
+    const [secondsLeft, setSecondsLeft] = useState(() => {
+        const now = Math.floor(Date.now() / 1000);
+        const elapsed = (now - startTimestamp) % maxSeconds;
+        return maxSeconds - elapsed;
+    });
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSecondsLeft(prev => (prev - 1 + maxSeconds) % maxSeconds);
+        }, updateInterval);
+
+        return () => clearInterval(interval);
+    }, [maxSeconds, updateInterval]);
+
+    const days = Math.floor(secondsLeft / 86400);
+    const hours = Math.floor((secondsLeft % 86400) / 3600);
+    const minutes = Math.floor((secondsLeft % 3600) / 60);
+    const seconds = secondsLeft % 60;
+
     return (
         <Layout>
             <section id='first_section'>
@@ -91,19 +118,22 @@ export default function Index({products,categories}) {
                 </div>
             </section>
             <section id='trois_section'>
-                <div className='flex'>
-                    <h3>Asesome</h3>
-                    <p>Shop</p>
+                <div className='flex gap-20'>
+                    <h3 className='text-xl'>Asesome</h3>
+                    <p className='text-gray-400 self-end'>Shop</p>
                 </div>
-                <div id='article' className='grid grid-cols-4'>
+                <div className='flex gap-3 items-center justify-end mb-3'>
+                    <button onClick={()=>changeProduct2('+')}>Next</button> |
+                    <button onClick={()=>changeProduct2('-')}>prew</button>
+                </div>
+                <div id='article' className='grid grid-cols-4 gap-3'>
                     { produitCarousel.map(product=>(
-                        
                         <div key={product.id}>
                             <div>
-                                <img src={product.images.image} alt="" />
+                                <img src={`storage/product/${product.images[0].image}`} alt="une image" />
                             </div>
                             <div>
-                                <h4>{product.name}</h4>
+                                <h4 className='text-lg'>{product.name}</h4>
                                 {product.promo != null?
                                     <p><span></span></p>
                                     :
@@ -114,18 +144,39 @@ export default function Index({products,categories}) {
                     )) }
                 </div>
             </section>
-            <section>
-                <div>
-                    <h1>Weekly Sale on 60% Off All Products</h1>
-                </div>
-                <div>
+            <section id='counterKadir'>
+                <div className='flex flex-col items-end'>
                     <div>
-                        <p></p>
-                        <p></p>
-                    </div>
-                    <div>
-                        <input type="text" />
-                        <button>BOOK NOW</button>
+                        <div>
+                            <h1>Weekly Sale on 60% <br /> Off All Products</h1>
+                        </div>
+                        <div>
+                            <div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>DAYS</th>
+                                            <th>HOURS</th>
+                                            <th>MINUTE</th>
+                                            <th>SECONDS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{days}</td>
+                                            <td>{hours}</td>
+                                            <td>{minutes}</td>
+                                            <td>{seconds}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p></p>
+                            </div>
+                            <div>
+                                <input type="text" />
+                                <button>BOOK NOW</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -136,10 +187,9 @@ export default function Index({products,categories}) {
                 </div>
                 <div>
                     <div>
-                        <button>Next</button>
+                        <button>Next</button> 
                         <button>Preview</button>
                     </div>
-                    {/* {map} */}
                 </div>
             </section>
             <section>
