@@ -8,6 +8,6 @@ class Blog_image extends Model
 {
     protected $fillable = ['image','blog_id'];
     public function blog(){
-        return $this->hasOne(Blog::class);
+        return $this->belongsTo(Blog::class);
     }
 }

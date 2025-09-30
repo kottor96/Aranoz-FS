@@ -14,6 +14,6 @@ class Blog extends Model
         return $this->belongsTo(Blog_categorie::class);
     }
     public function image(){
-        return $this->belongsTo(Blog_image::class);
+        return $this->hasOne(Blog_image::class);
     }
 }

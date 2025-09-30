@@ -24,8 +24,8 @@ class PageController extends Controller
         return Inertia::render('Index',compact('products','categories','maxSeconds',"startTimestamp",'updateInterval'));
     }
     public function blog(){
-        $blogs = Blog::all();
-        $filtres = Blog_categorie::all();
-        return Inertia::render('blog/Blog',compact("blogs",'filtres'));
+        $blogs = Blog::with('blog_categorie','image')->get();
+        $filters = Blog_categorie::all();
+        return Inertia::render('blog/Blog',compact("blogs",'filters'));
     }
 }
