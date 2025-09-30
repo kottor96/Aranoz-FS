@@ -3,8 +3,9 @@ import React from 'react'
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          
           {/* Top Products */}
           <div>
             <h3 className="font-semibold mb-4">Top Products</h3>
@@ -53,15 +54,15 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Newsletter</h3>
             <p className="text-sm mb-3">Subscribe to get updates</p>
-            <form className="flex flex-col sm:flex-row sm:items-center">
+            <form className="flex flex-col sm:flex-row gap-2">
               <input
                 type="email"
                 placeholder="Enter email"
-                className="px-3 py-2 rounded-s-md text-black flex-1"
+                className="px-3 py-2 rounded-md text-black flex-1 min-w-0"
               />
               <button
                 type="submit"
-                className="btnStyle"
+                className="btnStyle px-4 py-2 rounded-md text-sm whitespace-nowrap"
               >
                 Subscribe
               </button>
@@ -70,6 +71,7 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+
 
 
 

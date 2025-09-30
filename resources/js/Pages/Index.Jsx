@@ -199,13 +199,11 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                 </div>
             </section>
             <section id='homeLeter'>
-                <div>
-                    <p>join newsletter</p>
+                <div className="flex justify-center flex-col box-border text-center gap-5 mb-5">
+                    <p className='text-red-600'>join newsletter</p>
+                    <h3 className='text-5xl font-bold'>Subscribe to get updated <br /> with new offers</h3>
+                    <div className='flex gap-3 justify-center items-center '><input type="text" className='rounded-sm'/><button className='btnStyle rounded-sm box-border'>SUBSCRIBE NOW</button></div>
                 </div>
-                <div>
-                    Subscribe to get updated with new offers
-                </div>
-                <div><input type="text" /><button className='btnStyle'>SUBSCRIBE NOW</button></div>
             </section>
         </Layout>
     )
