@@ -6,13 +6,15 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', [PageController::class,'home']);
+Route::get('/', [PageController::class,'home'])->name('home');
 // return Inertia::render('Welcome', [
 //     'canLogin' => Route::has('login'),
 //     'canRegister' => Route::has('register'),
 //     'laravelVersion' => Application::VERSION,
 //     'phpVersion' => PHP_VERSION,
 // ]);
+
+Route::get('/blog',[PageController::class,'blog'])->name('blog');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
+use App\Models\Blog_categorie;
 use App\Models\Product;
 use App\Models\Product_categorie;
 use Illuminate\Http\Request;
@@ -20,5 +22,10 @@ class PageController extends Controller
         $updateInterval = 1000;
 
         return Inertia::render('Index',compact('products','categories','maxSeconds',"startTimestamp",'updateInterval'));
+    }
+    public function blog(){
+        $blogs = Blog::all();
+        $filtres = Blog_categorie::all();
+        return Inertia::render('blog/Blog',compact("blogs",'filtres'));
     }
 }
