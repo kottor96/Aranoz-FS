@@ -1,16 +1,16 @@
 import React from "react";
 
-export default function BlogIntroSection() {
+export default function IntroSection({titre,text}) {
   return (
     <section id="blog-section" className="py-16 px-8">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center lg:items-start gap-12">
         {/* Texte à gauche */}
         <div className="lg:w-1/2 text-left">
           <h2 className="text-5xl font-bold text-gray-700 mb-4">
-            Discover Our Blogs
+            {titre}
           </h2>
           <p className="text-xl text-gray-600">
-            Blog - Blogs table
+            {text}
           </p>
         </div>
 

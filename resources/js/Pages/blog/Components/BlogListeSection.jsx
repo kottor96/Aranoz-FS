@@ -1,8 +1,6 @@
 import React from "react";
 
 export default function BlogListSection({ blogs, filters }) {
-    console.log(blogs);
-    console.log(filters);
     
     
     return (
@@ -24,17 +22,14 @@ export default function BlogListSection({ blogs, filters }) {
                         </div>
 
                         {/* Date superposée */}
-                        <div className="absolute top-1/2 left-0 transform -translate-y-1/2 red text-white px-3 py-1 rounded-r-md text-sm font-bold">
-                            {new Date(blog.created_at).toLocaleDateString("fr-FR", {
-                                day: "2-digit",
-                            })} <br />
-                            {new Date(blog.created_at).toLocaleDateString("fr-FR", {
-                                month: "short",
-                            })}
+                        <div className="absolute bottom left-6 transform -translate-y-1/2 bg-red-600 text-white px-3 py-1 rounded-md text-sm font-bold text-center shadow-md">
+                            {new Date(blog.created_at).toLocaleDateString("fr-FR", { day: "2-digit" })}
+                            <br />
+                            {new Date(blog.created_at).toLocaleDateString("fr-FR", { month: "short" })}
                         </div>
 
                         {/* Contenu texte */}
-                        <div className="p-4">
+                        <div className="p-4 mt-3">
                             <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
                             <p className="text-gray-600 mb-4">{blog.description}</p>
                             
@@ -65,7 +60,7 @@ export default function BlogListSection({ blogs, filters }) {
                             🔍
                         </span>
                         </div>
-                        <button className="w-full py-3 rounded-lg text-white text-lg red hover:bg-gray-800">
+                        <button className="w-full py-3 rounded-lg text-white text-lg redBg hover:bg-gray-800">
                             Search
                         </button>
                     </div>

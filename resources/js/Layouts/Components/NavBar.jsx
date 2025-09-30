@@ -136,7 +136,7 @@ export default function NavBar(){
         <div className="space-y-1 px-2 pt-2 pb-3">
             {/* Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" */}
             <a
-            href="#"
+            href={route('home')}
             aria-current="page"
             className="block rounded-md bg-gray-950/50 px-3 py-2 text-base font-medium text-white"
             >
