@@ -49,6 +49,8 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
     const minutes = Math.floor((secondsLeft % 3600) / 60);
     const seconds = secondsLeft % 60;
 
+
+
     return (
         <Layout>
             <section id='first_section'>
@@ -148,7 +150,11 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                 <div className='flex flex-col items-end'>
                     <div>
                         <div>
-                            <h1>Weekly Sale on 60% <br /> Off All Products</h1>
+                            <h1 className='text-xxl mb-2'>
+                                Weekly Sale on 60% 
+                                <br /> 
+                                Off All Products
+                            </h1>
                         </div>
                         <div>
                             <div>
@@ -172,34 +178,34 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                                 </table>
                                 <p></p>
                             </div>
-                            <div>
-                                <input type="text" />
-                                <button>BOOK NOW</button>
+                            <div id='book' className='flex'>
+                                <input type="text" placeholder='Adresse Email'/>
+                                <button className='btnStyle'>BOOK NOW</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <section>
-                <div className='flex'>
-                    <h3>Best Seller</h3>
-                    <p>Shop</p>
+            <section id='bestHome'>
+                <div className='flex gap-4 items-end'>
+                    <h3 className='text-xl'>Best Seller</h3>
+                    <p className='text-lg text-gray-500'>Shop</p>
                 </div>
                 <div>
-                    <div>
-                        <button>Next</button> 
+                    <div className='flex justify-end gap-3'>
+                        <button>Next</button> |
                         <button>Preview</button>
                     </div>
                 </div>
             </section>
-            <section>
+            <section id='homeLeter'>
                 <div>
                     <p>join newsletter</p>
                 </div>
                 <div>
                     Subscribe to get updated with new offers
                 </div>
-                <div><input type="text" /><button>SUBSCRIBE NOW</button></div>
+                <div><input type="text" /><button className='btnStyle'>SUBSCRIBE NOW</button></div>
             </section>
         </Layout>
     )
