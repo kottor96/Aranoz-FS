@@ -15,6 +15,7 @@ Route::get('/', [PageController::class,'home'])->name('home');
 // ]);
 
 Route::get('/blog',[PageController::class,'blog'])->name('blog');
+Route::get('/shop',[PageController::class,'shop'])->name('shop');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

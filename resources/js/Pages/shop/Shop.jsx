@@ -1,9 +1,9 @@
 import IntroSection from "@/Components/IntroSection"
-import SectionShop from "./boutique/SectionShop"
+import SectionShop from "./Components/SectionShop"
 
-export default function Shop(){
+export default function Shop({products,categories}){
     return <>
         <IntroSection titre={"Shop Category"} text={"Home - Shop Category"}/>
-        <SectionShop />
+        <SectionShop products={products} categories={categories}/>
     </>
 }

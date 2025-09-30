@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Blog_categorie;
+use App\Models\Categorie;
 use App\Models\Product;
 use App\Models\Product_categorie;
 use Illuminate\Http\Request;
@@ -27,5 +28,10 @@ class PageController extends Controller
         $blogs = Blog::with('blog_categorie','image')->get();
         $filters = Blog_categorie::all();
         return Inertia::render('blog/Blog',compact("blogs",'filters'));
+    }
+    public function shop(){
+        $products = Product::with('images','category')->get();
+        $categories = Product_categorie::all();
+        return Inertia::render('shop/Shop',compact('products','categories'));
     }
 }
