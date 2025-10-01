@@ -82,7 +82,7 @@ export default function NavBar(){
                             Blog <FaAngleDown />
                         </Link>
                         <Link
-                            href="#"
+                            href={route('contact')}
                             className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white"
                         >
                             contact

@@ -35,4 +35,7 @@ class PageController extends Controller
         $categories = Product_categorie::all();
         return Inertia::render('shop/Shop',compact('products','categories'));
     }
+    public function contact(){
+        return Inertia::render('Contact/Contact');
+    }
 }

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function IntroSection({titre,text}) {
   return (
-    <section id="intro-section" className="py-16 px-8">
+    <section id="intro-section" className="py-20 px-16">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center lg:items-start gap-12">
         {/* Texte à gauche */}
         <div className="lg:w-1/2 text-left">

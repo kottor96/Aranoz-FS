@@ -7,15 +7,12 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [PageController::class,'home'])->name('home');
-// return Inertia::render('Welcome', [
-//     'canLogin' => Route::has('login'),
-//     'canRegister' => Route::has('register'),
-//     'laravelVersion' => Application::VERSION,
-//     'phpVersion' => PHP_VERSION,
-// ]);
+
 
 Route::get('/blog',[PageController::class,'blog'])->name('blog');
 Route::get('/shop',[PageController::class,'shop'])->name('shop');
+
+Route::get('/contact',[PageController::class,'contact'])->name('contact');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
