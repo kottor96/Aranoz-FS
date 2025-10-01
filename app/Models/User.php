@@ -58,7 +58,7 @@ class User extends Authenticatable
     public function orders(){
         return $this->hasMany(Order::class);
     }
-    public function like(){
+    public function likes(){
         return $this->hasMany(Like::class);
     }
     public function paniers(){
