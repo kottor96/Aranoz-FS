@@ -59,7 +59,7 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
     public function likes(){
-        return $this->hasMany(Like::class);
+        return $this->belongsToMany(Product::class,'likes','user_id','product_id');
     }
     public function paniers(){
         return $this->hasMany(Panier::class);

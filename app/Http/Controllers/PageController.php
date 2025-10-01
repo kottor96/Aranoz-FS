@@ -7,6 +7,7 @@ use App\Models\Blog_categorie;
 use App\Models\Categorie;
 use App\Models\Product;
 use App\Models\Product_categorie;
+use DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -30,7 +31,7 @@ class PageController extends Controller
         return Inertia::render('blog/Blog',compact("blogs",'filters'));
     }
     public function shop(){
-        $products = Product::with('images','category')->get();
+        $products = Product::with('images','category')->withCount('likes')->get();
         $categories = Product_categorie::all();
         return Inertia::render('shop/Shop',compact('products','categories'));
     }
