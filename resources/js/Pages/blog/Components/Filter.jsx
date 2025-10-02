@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Filter() {
+export default function Filter(filter,blogs) {
   return (
     <div className="lg:w-1/3 space-y-6">
         {/* Search */}

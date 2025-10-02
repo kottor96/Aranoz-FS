@@ -16,4 +16,7 @@ class Blog extends Model
     public function image(){
         return $this->hasOne(Blog_image::class);
     }
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 }

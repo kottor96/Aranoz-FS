@@ -10,7 +10,7 @@ Route::get('/', [PageController::class,'home'])->name('home');
 
 
 Route::get('/blog',[PageController::class,'blog'])->name('blog');
-Route::get('/blog/{id}/show',[PageController::class])->name('blog.show');
+Route::get('/blog/{id}/show',[PageController::class,'blogShow'])->name('blog.show');
 
 Route::get('/shop',[PageController::class,'shop'])->name('shop');
 

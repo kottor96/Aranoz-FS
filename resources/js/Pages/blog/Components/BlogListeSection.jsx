@@ -2,6 +2,7 @@ import { Link } from "@inertiajs/react";
 import React from "react";
 
 export default function BlogListSection({ blogs, filters }) {
+    console.log(blogs);
     
     
     return (
@@ -16,7 +17,7 @@ export default function BlogListSection({ blogs, filters }) {
                         {/* Image */}
                         <div className="aspect-w-16 aspect-h-9">
                             <img 
-                                src={blog.image.image} 
+                                src={`/storage/blog/${blog.image.image}`}
                                 alt={blog.title} 
                                 className="w-full h-full object-cover"
                             />
