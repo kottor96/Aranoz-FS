@@ -6,7 +6,7 @@ import IntroSection from '@/Components/IntroSection'
 export default function Blog({blogs,filters}) {
   return (
     <Layout>
-        <IntroSection titre={'blog'} text={"Blog - Blogs table"}/>
+        <IntroSection titre={'Blog'} text={"Blog - Blogs table"}/>
         <BlogListSection blogs={blogs} filters={filters}/>
     </Layout>
   )
