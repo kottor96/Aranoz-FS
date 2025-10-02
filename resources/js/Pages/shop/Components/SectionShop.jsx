@@ -104,7 +104,7 @@ export default function SectionShop({ products, categories }) {
             {/* Contenu principal */}
             <div className="lg:col-span-4 space-y-6">
                 {/* Barre de recherche desktop */}
-                <div className="flex gap-2 hidden lg:flex">
+                <div className=" gap-2 hidden lg:flex">
                     <input
                         type="text"
                         placeholder="Rechercher un produit..."
