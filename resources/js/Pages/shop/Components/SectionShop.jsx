@@ -3,11 +3,13 @@ import { useState } from "react";
 export default function SectionShop({ products, categories }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedColor, setSelectedColor] = useState(null);
     const [searchKeyword, setSearchKeyword] = useState("");
 
     const productsPerPage = 6;
 
-    const filteredProducts = products.filter((product) => {
+    // Filtrer par catégorie + recherche (avant couleur)
+    const preFiltered = products.filter((product) => {
         const matchesCategory = selectedCategory
             ? product.category_id === selectedCategory
             : true;
@@ -17,12 +19,19 @@ export default function SectionShop({ products, categories }) {
         return matchesCategory && matchesSearch;
     });
 
+    // Extraire les couleurs dispo depuis ce résultat
+    const colors = [...new Set(preFiltered.map((p) => p.color).filter(Boolean))];
+
+    // Appliquer le filtre couleur final
+    const filteredProducts = preFiltered.filter((product) =>
+        selectedColor ? product.color === selectedColor : true
+    );
+
+    // Pagination
     const indexOfLast = currentPage * productsPerPage;
     const indexOfFirst = indexOfLast - productsPerPage;
     const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-
-    const colors = [];
 
     return (
         <section className="container max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-5 gap-8">
@@ -37,7 +46,7 @@ export default function SectionShop({ products, categories }) {
                         value={searchKeyword}
                         onChange={(e) => {
                             setSearchKeyword(e.target.value);
-                            setCurrentPage(1); // reset pagination
+                            setCurrentPage(1);
                         }}
                     />
                 </div>
@@ -52,9 +61,7 @@ export default function SectionShop({ products, categories }) {
                             <div
                                 key={cat.id}
                                 className={`cursor-pointer hover:text-blue-600 ${
-                                    selectedCategory === cat.id
-                                        ? "text-blue-600 font-bold"
-                                        : ""
+                                    selectedCategory === cat.id ? "text-blue-600 font-bold" : ""
                                 }`}
                                 onClick={() =>
                                     setSelectedCategory(
@@ -68,9 +75,7 @@ export default function SectionShop({ products, categories }) {
 
                         <div
                             className={`cursor-pointer hover:text-blue-600 ${
-                                selectedCategory === null
-                                    ? "font-bold text-blue-600"
-                                    : ""
+                                selectedCategory === null ? "font-bold text-blue-600" : ""
                             }`}
                             onClick={() => setSelectedCategory(null)}
                         >
@@ -79,32 +84,43 @@ export default function SectionShop({ products, categories }) {
                     </div>
                 </div>
 
-                {/* Couleurs */}
-                <div>
-                    <h3 className="text-md font-semibold mb-2">Couleurs</h3>
-                    <div className="flex flex-wrap gap-2">
-                        {colors.length > 0 ? (
-                            colors.map((color) => (
+                {/* Couleurs (affichée seulement s’il y a au moins une couleur) */}
+                {colors.length > 0 && (
+                    <div>
+                        <h3 className="text-md font-semibold mb-2">Couleurs</h3>
+                        <div className="space-y-2">
+                            {/* Bouton “Toutes” pour retirer filtre couleur */}
+                            <div
+                                className={`cursor-pointer hover:text-blue-600 ${
+                                    selectedColor === null ? "font-bold text-blue-600" : ""
+                                }`}
+                                onClick={() => setSelectedColor(null)}
+                            >
+                                Toutes
+                            </div>
+
+                            {colors.map((color) => (
                                 <div
                                     key={color}
-                                    className="cursor-pointer px-3 py-1 border rounded-lg hover:bg-blue-50"
+                                    className={`cursor-pointer hover:text-blue-600 ${
+                                        selectedColor === color ? "text-blue-600 font-bold" : ""
+                                    }`}
+                                    onClick={() =>
+                                        setSelectedColor(selectedColor === color ? null : color)
+                                    }
                                 >
                                     {color}
                                 </div>
-                            ))
-                        ) : (
-                            <p className="text-sm text-gray-500">
-                                Aucune couleur disponible
-                            </p>
-                        )}
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
 
             {/* Contenu principal */}
             <div className="lg:col-span-4 space-y-6">
                 {/* Barre de recherche desktop */}
-                <div className=" gap-2 hidden lg:flex">
+                <div className="flex gap-2 hidden lg:flex">
                     <input
                         type="text"
                         placeholder="Rechercher un produit..."
@@ -112,7 +128,7 @@ export default function SectionShop({ products, categories }) {
                         value={searchKeyword}
                         onChange={(e) => {
                             setSearchKeyword(e.target.value);
-                            setCurrentPage(1); // reset pagination
+                            setCurrentPage(1);
                         }}
                     />
                 </div>

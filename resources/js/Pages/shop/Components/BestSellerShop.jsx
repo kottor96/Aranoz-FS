@@ -49,8 +49,8 @@ export default function BestSellerShop({ products }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
                 {paginatedProducts.map((product) => (
                     <div
-                    key={product.id}
-                    className="bg-white p-6 rounded-xl"
+                        key={product.id}
+                        className="bg-white p-6 rounded-xl"
                     >
                     <div className="h-48 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
                         <img 
