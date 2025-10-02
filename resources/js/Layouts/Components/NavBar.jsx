@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { CiUser } from "react-icons/ci";
 import { FaAngleDown } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
@@ -7,7 +7,8 @@ import { MdOutlineSearch } from "react-icons/md";
 
 
 
-export default function NavBar({auth}){
+export default function NavBar(){
+    const {auth} = usePage().props;
     return <>
     {/*  */}
     <nav className="relative bg-gray-800/50 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10">
@@ -108,22 +109,22 @@ export default function NavBar({auth}){
                             popover=""
                             className="w-48 origin-top-right gap-4 rounded-md bg-gray-800 py-1 outline -outline-offset-1 outline-white/10 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
                         >
-                            <a
+                            <Link
                                 href="#"
                                 className="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden"
                             >
                                 Your profile
-                            </a>
-                            <a
+                            </Link>
+                            <Link
                                 href="#"
                                 className="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden"
                             >
                                 Settings
-                            </a>
+                            </Link>
                             {auth.user ? (
                                     <Link
                                         href={route('dashboard')}
-                                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                        className="rounded-md px-3 py-2 text-gray-300 ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] "
                                     >
                                         Dashboard
                                     </Link>
@@ -131,13 +132,13 @@ export default function NavBar({auth}){
                                     <>
                                         <Link
                                             href={route('login')}
-                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                            className="rounded-md px-3 py-2 text-gray-300 ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] block"
                                         >
                                             Log in
                                         </Link>
                                         <Link
                                             href={route('register')}
-                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                            className="rounded-md px-3 py-2 text-gray-300 ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] block"
                                         >
                                             Register
                                         </Link>
