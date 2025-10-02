@@ -7,7 +7,7 @@ import { MdOutlineSearch } from "react-icons/md";
 
 
 
-export default function NavBar(){
+export default function NavBar({auth}){
     return <>
     {/*  */}
     <nav className="relative bg-gray-800/50 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10">
@@ -120,12 +120,29 @@ export default function NavBar(){
                             >
                                 Settings
                             </a>
-                            <a
-                                href="#"
-                                className="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden"
-                            >
-                                Sign out 
-                            </a>
+                            {auth.user ? (
+                                    <Link
+                                        href={route('dashboard')}
+                                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                    >
+                                        Dashboard
+                                    </Link>
+                                ) : (
+                                    <>
+                                        <Link
+                                            href={route('login')}
+                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                        >
+                                            Log in
+                                        </Link>
+                                        <Link
+                                            href={route('register')}
+                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                        >
+                                            Register
+                                        </Link>
+                                    </>
+                                )}
                         </el-menu>
                     </el-dropdown>
                 </div>
@@ -134,31 +151,31 @@ export default function NavBar(){
         <el-disclosure id="mobile-menu" hidden="" className="block sm:hidden">
         <div className="space-y-1 px-2 pt-2 pb-3">
             {/* Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" */}
-            <a
-            href={route('home')}
-            aria-current="page"
-            className="block rounded-md bg-gray-950/50 px-3 py-2 text-base font-medium text-white"
+            <Link
+                href={route('home')}
+                aria-current="page"
+                className="block rounded-md bg-gray-950/50 px-3 py-2 text-base font-medium text-white"
             >
                 Home
-            </a>
-            <a
-            href="#"
-            className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+            </Link>
+            <Link
+                href={route('shop')}
+                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
             >
                 Shop <FaAngleDown />
-            </a>
-            <a
-            href="#"
-            className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+            </Link>
+            <Link
+                href={route("blog")}
+                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
             >
                 Blog <FaAngleDown />
-            </a>
-            <a
-            href="#"
-            className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+            </Link>
+            <Link
+                href={route('contact')}
+                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
             >
                 Contact
-            </a>
+            </Link>
         </div>
         </el-disclosure>
     </nav>
