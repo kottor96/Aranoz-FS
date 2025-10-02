@@ -13,6 +13,7 @@ Route::get('/blog',[PageController::class,'blog'])->name('blog');
 Route::get('/blog/{id}/show',[PageController::class,'blogShow'])->name('blog.show');
 
 Route::get('/shop',[PageController::class,'shop'])->name('shop');
+Route::get('/product/{id}/show',[PageController::class,'productShow'])->name('product.show');
 
 Route::get('/contact',[PageController::class,'contact'])->name('contact');
 

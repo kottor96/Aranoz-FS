@@ -44,4 +44,8 @@ class PageController extends Controller
     public function contact(){
         return Inertia::render('Contact/Contact');
     }
+    public function productShow($id){
+        $product = Product::with('images')->findOrFail($id);
+        return Inertia::render('shop/Show',compact('product'));
+    }
 }

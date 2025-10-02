@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function SectionShop({ products, categories }) {
@@ -120,7 +121,7 @@ export default function SectionShop({ products, categories }) {
             {/* Contenu principal */}
             <div className="lg:col-span-4 space-y-6">
                 {/* Barre de recherche desktop */}
-                <div className="flex gap-2 hidden lg:flex">
+                <div className="gap-2 hidden lg:flex">
                     <input
                         type="text"
                         placeholder="Rechercher un produit..."
@@ -136,33 +137,31 @@ export default function SectionShop({ products, categories }) {
                 {/* Grille des produits */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {currentProducts.map((product) => (
-                        <div
-                            key={product.id}
-                            className="bg-white shadow-md rounded-lg overflow-hidden"
-                        >
-                            <div className="w-full h-64 flex items-center justify-center bg-gray-100">
-                                <img
-                                    src={`/storage/product/${product.images[0].image}`}
-                                    alt={product.name}
-                                    className="max-h-full max-w-full object-contain"
-                                />
+                        <Link href={route('product.show',product.id)} className="block">
+                            <div className="bg-white rounded-lg overflow-hidden cursor-pointer hover:shadow-md transition-shadow duration-200">
+                                <div className="w-full h-64 flex items-center justify-center bg-gray-100">
+                                    <img
+                                        src={`/storage/product/${product.images[0].image}`}
+                                        alt={product.name}
+                                        className="max-h-full max-w-full object-contain"
+                                    />
+                                </div>
+                                <div className="p-4">
+                                    <h3 className="text-lg font-bold">{product.name}</h3>
+                                    {product.promo ? (
+                                        <p className="text-red-600 font-semibold">
+                                            {product.promo} €{" "}
+                                            <span className="line-through text-gray-500 ml-2">
+                                                {product.price} €
+                                            </span>
+                                        </p>
+                                    ) : (
+                                        <p className="text-blue-600 font-semibold">{product.price} €</p>
+                                    )}
+                                </div>
                             </div>
-                            <div className="p-4">
-                                <h3 className="text-lg font-bold">{product.name}</h3>
-                                {product.promo ? (
-                                    <p className="text-red-600 font-semibold">
-                                        {product.promo} €{" "}
-                                        <span className="line-through text-gray-500 ml-2">
-                                            {product.price} €
-                                        </span>
-                                    </p>
-                                ) : (
-                                    <p className="text-blue-600 font-semibold">
-                                        {product.price} €
-                                    </p>
-                                )}
-                            </div>
-                        </div>
+                        </Link>
+
                     ))}
                 </div>
 
