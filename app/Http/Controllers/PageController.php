@@ -30,6 +30,10 @@ class PageController extends Controller
         $filters = Blog_categorie::all();
         return Inertia::render('blog/Blog',compact("blogs",'filters'));
     }
+    public function blogShow($id){
+        $blog = Blog::findOrFail($id)->get();
+        return Inertia::render('blog/Show',compact('blog'));
+    }
     public function shop(){
         $products = Product::with('images','category')->withCount('likes')->get();
         $categories = Product_categorie::all();

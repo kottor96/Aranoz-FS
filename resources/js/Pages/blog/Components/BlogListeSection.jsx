@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import React from "react";
 
 export default function BlogListSection({ blogs, filters }) {
@@ -30,15 +31,17 @@ export default function BlogListSection({ blogs, filters }) {
 
                         {/* Contenu texte */}
                         <div className="p-4 mt-3">
-                            <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
+                            <Link className="clicable" href={route('blog.show',blog.id)}>
+                                <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
+                            </Link>
                             <p className="text-gray-600 mb-4">{blog.description}</p>
                             
                             {/* Infos bonus */}
                             <div className="flex justify-start gap-4 text-sm text-gray-500">
-                            {/* <span>{blog.blog_catagorie.name.join("  ")}</span> | */}
-                            <a href={blog.commentsLink} className="underline hover:text-gray-800">
-                                Comments
-                            </a>
+                                {/* <span>{blog.blog_catagorie.name.join("  ")}</span> | */}
+                                <a href={blog.commentsLink} className="underline hover:text-gray-800">
+                                    Comments
+                                </a>
                             </div>
                         </div>
                         </div>
