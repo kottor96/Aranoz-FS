@@ -1,75 +1,104 @@
 import { useState } from "react";
 
 export default function ShowSectionDetails({ product }) {
-    const [activeTab, setActiveTab] = useState("details");
-    const [comments, setComments] = useState(product.comment || []);
-    const [newComment, setNewComment] = useState("");
+  const [activeTab, setActiveTab] = useState("details");
 
-    const handleAddComment = () => {
-        if (!newComment.trim()) return;
-        setComments([...comments, { id: Date.now(), text: newComment }]);
-        setNewComment("");
-    };
+  const specLabels = {
+    width: "Width",
+    height: "Height",
+    deph: "Depth",
+    weight: "Weight",
+    quality_checking: "Quality checking",
+    freshness_duration: "Freshness Duration",
+    packeting: "When packeting",
+    content: "Each Box contains",
+  };
 
-    return (
-        <section className="w-full max-w-4xl mx-auto mt-8">
-        <header className="flex gap-4 mb-4">
-            {["details", "description", "comments"].map((tab) => (
+  const formatSpecValue = (key, value) => {
+    if (key === "freshness_duration") return `${value} days`;
+    if (key === "quality_checking") return value ? "Yes" : "No";
+    if (key === "content") return `${value} pcs`;
+    return value;
+  };
+
+  const tabs = [
+    { key: "details", label: "Détails" },
+    { key: "description", label: "Description" },
+    { key: "comments", label: "Commentaires" },
+  ];
+
+  return (
+    <section className="my-12 w-full">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-8">
+        {/* Onglets */}
+        <div className="flex flex-wrap gap-3 mb-6">
+          {tabs.map((tab) => (
             <button
-                key={tab}
-                className={`
-                px-4 py-2 rounded
-                bg-transparent
-                hover:bg-gray-200
-                ${activeTab === tab ? "bg-red-custom text-white" : "text-black"}
-                transition-colors duration-200
-                `}
-                onClick={() => setActiveTab(tab)}
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`px-5 py-2 hover:bg-gray-200 rounded-full transition ${
+                activeTab === tab.key ? "bg-red-500 text-white" : "bg-white border "
+              }`}
             >
-                {tab === "details" ? "Détails" : tab === "description" ? "Description" : "Commentaires"}
+              {tab.label}
             </button>
-            ))}
-        </header>
+          ))}
+        </div>
 
-        <div className="bg-white shadow p-4 rounded">
-            {activeTab === "details" && product.detail && (
-            <ul className="list-disc list-inside">
-                {Object.entries(product.specification).map(([key, value]) => (
-                <li key={key}>
-                    <strong>{key}:</strong> {value}
-                </li>
-                ))}
-            </ul>
+        {/* Contenu */}
+        <div className="space-y-6">
+            {activeTab === "details" && product.specification && (
+                <ul className="list-disc list-inside space-y-2">
+                {Object.entries(product.specification)
+                    .filter(
+                    ([key]) =>
+                        !["id", "product_id", "created_at", "updated_at"].includes(
+                        key
+                        )
+                    )
+                    .map(([key, value]) => (
+                    <li key={key}>
+                        <strong>{specLabels[key] || key}:</strong>{" "}
+                        {formatSpecValue(key, value)}
+                    </li>
+                    ))}
+                </ul>
             )}
 
-            {activeTab === "description" && <p>{product.description}</p>}
+            {activeTab === "description" && (
+                <p>{product.description || "No description."}</p>
+            )}
 
             {activeTab === "comments" && (
-            <div>
-                <ul className="list-disc list-inside mb-4">
-                {comments.map((comment) => (
-                    <li key={comment.id}>{comment.text}</li>
-                ))}
+            <div className="space-y-4">
+                {product.comments?.length > 0 ? (
+                <ul className="list-disc list-inside space-y-1">
+                    {product.comments.map((c) => (
+                    <li key={c.id}>
+                        <strong>{c.user_name}:</strong> {c.content}
+                    </li>
+                    ))}
                 </ul>
+                ) : (
+                <p>Aucun commentaire pour le moment.</p>
+                )}
 
-                <div className="flex gap-2">
+                {/* Input pour ajouter un commentaire */}
+                <div className="flex flex-col sm:flex-row gap-2 mt-4">
                 <input
                     type="text"
-                    className="border rounded p-2 flex-1"
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Ajouter un commentaire..."
+                    placeholder="Écrire un commentaire..."
+                    className="flex-1 border rounded px-3 py-2"
                 />
-                <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded"
-                    onClick={handleAddComment}
-                >
-                    Ajouter
+                <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+                    Envoyer
                 </button>
                 </div>
             </div>
             )}
+
         </div>
-        </section>
-    );
+      </div>
+    </section>
+  );
 }
