@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Blog_categorie;
-use App\Models\Categorie;
 use App\Models\Product;
 use App\Models\Product_categorie;
-use DB;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PageController extends Controller
@@ -36,16 +33,9 @@ class PageController extends Controller
         $blog = Blog::with('blog_categorie','image','comments')->findOrFail($id);
         return Inertia::render('blog/Show',compact('blog','blogs','filters'));
     }
-    public function shop(){
-        $products = Product::with('images','category')->withCount('likes')->get();
-        $categories = Product_categorie::all();
-        return Inertia::render('shop/Shop',compact('products','categories'));
-    }
+
     public function contact(){
         return Inertia::render('Contact/Contact');
     }
-    public function productShow($id){
-        $product = Product::with('images')->findOrFail($id);
-        return Inertia::render('shop/Show',compact('product'));
-    }
+    
 }
