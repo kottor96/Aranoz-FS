@@ -1,10 +1,12 @@
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function SectionShop({ products, categories }) {
+export default function SectionShop({ products, categories, cat }) {
+    const catNumber = cat ? Number(cat) : null;
+    const [selectedCategory, setSelectedCategory] = useState(catNumber);
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedColor, setSelectedColor] = useState(null);
+
     const [searchKeyword, setSearchKeyword] = useState("");
 
     const productsPerPage = 6;

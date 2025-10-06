@@ -15,7 +15,7 @@ Route::get('/', [PageController::class,'home'])->name('home');
 Route::get('/blog',[PageController::class,'blog'])->name('blog');
 Route::get('/blog/{id}/show',[PageController::class,'blogShow'])->name('blog.show');
 
-Route::get('/shop',[ProductController::class,'index'])->name('shop');
+Route::get('/shop/{cat?}',[ProductController::class,'index'])->name('shop');
 Route::get('/product/{id}/show',[ProductController::class,'show'])->name('product.show');
 
 Route::get('/contact',[PageController::class,'contact'])->name('contact');

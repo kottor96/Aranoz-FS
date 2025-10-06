@@ -12,11 +12,11 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($cat=[])
     {
         $products = Product::with('images','category')->withCount('likes')->get();
         $categories = Product_categorie::all();
-        return Inertia::render('shop/Shop',compact('products','categories'));
+        return Inertia::render('shop/Shop',compact('products','categories','cat'));
     }
 
     /**
