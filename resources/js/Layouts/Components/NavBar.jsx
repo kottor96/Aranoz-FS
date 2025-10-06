@@ -31,7 +31,7 @@ export default function Navbar() {
     }, [openDropdown]);
 
     return (
-        <nav className="bg-white shadow-md w-full">
+        <nav className="absolute top-0 z-50  w-full">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
                 {/* Logo */}
@@ -56,9 +56,9 @@ export default function Navbar() {
                         Shop <FaAngleDown className="ml-1" />
                     </button>
                     {openDropdown === "shop" && (
-                        <div className="absolute mt-2 w-48 bg-white rounded-md shadow-md py-2 z-50">
-                            <Link href={route('shop')} className="block px-4 py-2 hover:bg-gray-100">shop</Link>
-                            <Link href={route('orders.index')} className="block px-4 py-2 hover:bg-gray-100">track order</Link>
+                        <div className="absolute mt-2 w-48 text-white bg-red-custom rounded-md shadow-md py-2 z-50">
+                            <Link href={route('shop')} className="block px-4 py-2 hover:brightness-75">shop</Link>
+                            <Link href={route('orders.index')} className="block px-4 py-2 hover:brightness-75">track order</Link>
                             {/* {category.map(el=>(
                                 <Link href={route('shop',el.id)} className="block px-4 py-2 hover:bg-gray-100" key={el.id}>{el.name}</Link>
                             ))} */}
@@ -76,9 +76,9 @@ export default function Navbar() {
                         Blog <FaAngleDown className="ml-1" />
                     </button>
                     {openDropdown === "blog" && (
-                        <div className="absolute mt-2 w-48 bg-white rounded-md shadow-md py-2 z-50">
-                        <Link href={route('blog')} className="block px-4 py-2 hover:bg-gray-100">Tous</Link>
-                        <Link href="" className="block px-4 py-2 hover:bg-gray-100">Guides</Link>
+                        <div className="absolute mt-2 w-48 bg-red-custom text-white rounded-md shadow-md py-2 z-50">
+                            <Link href={route('blog')} className="block px-4 py-2 hover:brightness-75">Tous</Link>
+                            <Link href="" className="block px-4 py-2 hover:brightness-75">Guides</Link>
                         </div>
                     )}
                     </div>
@@ -100,29 +100,31 @@ export default function Navbar() {
                         <FiUser size={20} />
                     </button>
                     {openDropdown === "user" && (
-                        <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-50">
+                        <div className="absolute right-0 mt-2 w-48 text-white bg-red-custom shadow-lg rounded-md py-2 z-50">
                         {auth?.user ? (
+                            <div className="absolute right-0 mt-2 w-48 bg-red-cutom text-white shadow-lg rounded-md py-2 z-50">
+                                {auth.user.role === 'admin' && (
+                                <Link href={route('admin.dashboard')} className="block px-4 py-2 hover:brightness-75">
+                                    Dashboard
+                                </Link>
+                                )}
+                                <Link href={route('profile')} className="block px-4 py-2 hover:brightness-75">
+                                    Profile
+                                </Link>
+                                <Link href={route('settings')} className="block px-4 py-2 hover:brightness-75">
+                                    Settings
+                                </Link>
+                                <Link href={route('logout')} method="post" className="block px-4 py-2 hover:brightness-75">
+                                    Logout
+                                </Link>
+                            </div>
+                            ) : (
                             <>
-                            <Link href="/profile" className="block px-4 py-2 hover:bg-gray-100">
-                                Profile
-                            </Link>
-                            <Link href="/settings" className="block px-4 py-2 hover:bg-gray-100">
-                                Settings
-                            </Link>
-                            <Link href="/logout" method="post" className="block px-4 py-2 hover:bg-gray-100">
-                                Logout
-                            </Link>
+                                <Link href={route('login')} className="block px-4 py-2 hover:brightness-75">Login</Link>
+                                <Link href={route('register')} className="block px-4 py-2 hover:brightness-75">Register</Link>
                             </>
-                        ) : (
-                            <>
-                            <Link href="/login" className="block px-4 py-2 hover:bg-gray-100">
-                                Login
-                            </Link>
-                            <Link href="/register" className="block px-4 py-2 hover:bg-gray-100">
-                                Register
-                            </Link>
-                            </>
-                        )}
+                            )}
+
                         </div>
                     )}
                     </div>
