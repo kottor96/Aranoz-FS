@@ -17,7 +17,9 @@ class OrderController extends Controller
         $orders = [];
 
         if ($numero) {
-            $orders = Order::where('order_number', $numero)->get();
+            $orders = Order::where('order_number', $numero)
+              ->with('orderItems')
+              ->first();
         }
 
         return Inertia::render('shop/TrackOrder', [
