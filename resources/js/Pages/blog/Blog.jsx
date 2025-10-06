@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import IntroSection from "@/Components/IntroSection";
 import BlogListSection from "./Components/BlogListeSection";
 
-export default function Blog({ blogs, filters }) {
+export default function Blog({ blogs, filters,cat }) {
   // 🔗 L’état global du filtrage
   const [search, setSearch] = useState("");
-  const [selectedCat, setSelectedCat] = useState(null);
+  const [selectedCat, setSelectedCat] = useState(cat??null);
 
   // 🔍 Filtrage centralisé ici
   const filteredBlogs = blogs.filter((blog) => {

@@ -100,30 +100,40 @@ export default function Show({ blog, filters, blogs }) {
                         </button>
                     </div>
 
-                    {/* Category */}
                     <div className="bg-gray-100 p-6 rounded-lg">
                         <h4 className="font-bold text-xl mb-4">Category</h4>
-                        {filters.map((cat) => (
-                            <div key={cat.id} className="mb-2 cursor-pointer hover:text-blue-600 text-lg">
-                                {cat.name}
-                            </div>
+
+                        <Link key="all" href={route('blog')}>
+                            <div className="mb-2 cursor-pointer text-lg text-red-hover">Tous</div>
+                        </Link>
+
+                        {/* Autres catégories */}
+                        {filters.map(cat => (
+                            <Link key={cat.id} href={route('blog', cat.id)}>
+                            <div className="mb-2 cursor-pointer text-lg text-red-hover">{cat.name}</div>
+                            </Link>
                         ))}
                     </div>
 
-                    {/* Recent Posts */}
+                    {/* Recent Posts (4 derniers) */}
                     <div className="bg-gray-100 p-6 rounded-lg">
                         <h4 className="font-bold text-xl mb-4">Recent Posts</h4>
                         {blogs
-                            .slice() // pour ne pas muter l'original
-                            .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) // tri du plus récent au plus ancien
-                            .map((post) => (
-                                <div key={post.id} className="mb-4 border-b border-gray-300 pb-3">
-                                    <h5 className="font-semibold text-gray-700 text-lg truncate" title={post.title}>
+                            .slice()
+                            .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                            .slice(0, 4)
+                            .map(post => (
+                            <div key={post.id} className="mb-4 border-b border-gray-300 pb-3">
+                                <Link href={route("blog.show", post.id)} className="text-red-hover">
+                                    <h5 className="font-semibold text-gray-700 text-red-hover text-lg truncate" title={post.title}>
                                         {post.title.length > 30 ? post.title.substring(0, 30) + "..." : post.title}
                                     </h5>
-                                    <span className="text-sm text-gray-500 block mt-1">{post.date}</span>
-                                </div>
-                            ))}
+                                </Link>
+                                <span className="text-sm text-gray-500 block mt-1">
+                                    {new Date(post.created_at).toLocaleDateString("fr-FR")}
+                                </span>
+                            </div>
+                        ))}
                     </div>
                 </div>
 

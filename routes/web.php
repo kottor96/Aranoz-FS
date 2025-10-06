@@ -12,7 +12,7 @@ use Inertia\Inertia;
 Route::get('/', [PageController::class,'home'])->name('home');
 
 
-Route::get('/blog',[PageController::class,'blog'])->name('blog');
+Route::get('/blog/{cat?}',[PageController::class,'blog'])->name('blog');
 Route::get('/blog/{id}/show',[PageController::class,'blogShow'])->name('blog.show');
 
 Route::get('/shop/{cat?}',[ProductController::class,'index'])->name('shop');

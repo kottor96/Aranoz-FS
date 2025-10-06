@@ -22,7 +22,7 @@ export default function BlogListSection({blogs,filters,search,setSearch,selected
                     />
                     </div>
 
-                    <div className="absolute bottom left-6 transform -translate-y-1/2 bg-red-600 text-white px-3 py-1 rounded-md text-sm font-bold text-center shadow-md">
+                    <div className="absolute bottom left-6 transform -translate-y-1/2 bg-red-custom text-white px-3 py-1 rounded-md text-sm font-bold text-center shadow-md">
                     {new Date(blog.created_at).toLocaleDateString("fr-FR", {
                         day: "2-digit",
                         month: "short",
@@ -30,7 +30,7 @@ export default function BlogListSection({blogs,filters,search,setSearch,selected
                     </div>
 
                     <div className="p-4 mt-3">
-                    <Link href={route("blog.show", blog.id)}>
+                    <Link href={route("blog.show", blog.id)} className="text-red-hover">
                         <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
                     </Link>
                     <p className="text-gray-600 mb-4">{blog.description}</p>
@@ -42,6 +42,7 @@ export default function BlogListSection({blogs,filters,search,setSearch,selected
 
             {/* Sidebar connectée */}
             <Filter
+                blogs={blogs}
                 filters={filters}
                 search={search}
                 setSearch={setSearch}

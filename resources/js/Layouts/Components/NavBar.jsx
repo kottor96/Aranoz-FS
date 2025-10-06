@@ -58,6 +58,7 @@ export default function Navbar() {
                     {openDropdown === "shop" && (
                         <div className="absolute mt-2 w-48 bg-white rounded-md shadow-md py-2 z-50">
                             <Link href={route('shop')} className="block px-4 py-2 hover:bg-gray-100">shop</Link>
+                            <Link href={route('orders.index')} className="block px-4 py-2 hover:bg-gray-100">track order</Link>
                             {/* {category.map(el=>(
                                 <Link href={route('shop',el.id)} className="block px-4 py-2 hover:bg-gray-100" key={el.id}>{el.name}</Link>
                             ))} */}
