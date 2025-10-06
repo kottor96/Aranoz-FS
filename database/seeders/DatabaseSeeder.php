@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Order_item;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LikeSeeder::class);
         $this->call(SpecificationSeeder::class);
         $this->call(CommentSeeder::class);
+        $this->call(OrderSeeder::class);
+        $this->call(OrderItemSeeder::class);
     }
 }

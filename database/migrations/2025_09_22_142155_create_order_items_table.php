@@ -13,30 +13,33 @@ return new class extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
 
-            // snapshot produit au moment de l'achat
+            // On garde l'id de la commande mais on ne supprime pas automatiquement l'item si la commande est supprimée
+            $table->foreignId('order_id')->nullable()->constrained()->nullOnDelete();
+
+            // On garde l'id du produit mais ne supprime pas l'item si le produit est supprimé
+            $table->foreignId('product_id')->nullable()->constrained()->nullOnDelete();
+
+            // Snapshot des infos produit au moment de l'achat
             $table->string('product_name');
             $table->decimal('unit_price', 8, 2);
             $table->integer('quantity')->default(1);
             $table->decimal('total_price', 8, 2);
 
-            // images liées au produit
-            $table->string('image_main');
-            $table->string('image_rear')->nullable();
-            $table->string('image_left_side')->nullable();
-            $table->string('image_right_side')->nullable();
-
-            // couleur et description au moment de la commande
+            // Couleur et description au moment de la commande
             $table->string('color')->nullable();
             $table->text('description')->nullable();
 
-            // promotion ou réduction appliquée
-            $table->foreignId('promotion_id')->nullable()->constrained()->onDelete('set null');
+            // **Image principale du produit**
+            $table->string('image_main')->nullable();
+
+            // Promotion ou réduction appliquée
+            $table->foreignId('promotion_id')->nullable()->constrained()->nullOnDelete();
 
             $table->timestamps();
         });
+
+
 
     }
 
