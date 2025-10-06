@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -18,6 +19,7 @@ Route::get('/product/{id}/show',[ProductController::class,'show'])->name('produc
 
 Route::get('/contact',[PageController::class,'contact'])->name('contact');
 
+Route::get('/orders/{numero?}', [OrderController::class, 'index'])->name('orders.index');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
