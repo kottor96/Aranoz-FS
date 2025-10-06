@@ -47,22 +47,15 @@ export default function ProductShow({ product }) {
         <div
             className="w-[40%] h-[400px] flex flex-col items-center justify-start border overflow-hidden cursor-grab relative"
             ref={sliderRef}
-            onMouseDown={handleDragStart}
-            onMouseMove={handleDragMove}
-            onMouseUp={handleDragEnd}
-            onMouseLeave={handleDragEnd}
-            onTouchStart={handleDragStart}
-            onTouchMove={handleDragMove}
-            onTouchEnd={handleDragEnd}
         >
             <div
             className="transition-transform duration-300 flex flex-col"
             style={{ transform: `translateY(-${activeImage * 400}px)` }}
             >
-            {product.images.map((img, index) => (
+            {product.images.map((img) => (
                 <div
-                key={index}
-                className="w-full h-[400px] flex justify-center items-center flex-shrink-0"
+                    key={img.id}
+                    className="w-full h-[400px] flex justify-center items-center flex-shrink-0"
                 >
                 <img
                     src={`/storage/product/${img.image}`}

@@ -137,7 +137,7 @@ export default function SectionShop({ products, categories }) {
                 {/* Grille des produits */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {currentProducts.map((product) => (
-                        <Link href={route('product.show',product.id)} className="block">
+                        <Link href={route('product.show',product.id)} className="block" key={product.id}> 
                             <div className="bg-white rounded-lg overflow-hidden cursor-pointer hover:shadow-md transition-shadow duration-200">
                                 <div className="w-full h-64 flex items-center justify-center bg-gray-100">
                                     <img

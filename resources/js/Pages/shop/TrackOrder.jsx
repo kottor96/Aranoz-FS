@@ -41,7 +41,7 @@ export default function Order({ orders = [], numeroRecherche = '' }) {
                 </div>
             ) : (
                 <p className="text-red-500 text-center">
-                Aucune commande pour {numeroRecherche}
+                    Aucune commande pour {numeroRecherche}
                 </p>
             )
             )}
