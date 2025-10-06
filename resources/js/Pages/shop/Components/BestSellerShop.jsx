@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 export default function BestSellerShop({ products }) {
+    
     // Trier les produits par likes_count décroissant
     const sortedProducts = [...products].sort((a, b) => b.likes_count - a.likes_count);
 

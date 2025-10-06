@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import Layout from '../Layouts/Layout.jsx'
+import { Link } from '@inertiajs/react';
+import BestSellerShop from "./shop/Components/BestSellerShop.jsx";
+
 
 export default function Index({products, categories, maxSeconds, startTimestamp, updateInterval}) {
 
@@ -50,6 +53,7 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
     const seconds = secondsLeft % 60;
 
 
+    
 
     return (
         <Layout>
@@ -129,21 +133,31 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                     <button onClick={()=>changeProduct2('-')}>prew</button>
                 </div>
                 <div id='article' className='grid grid-cols-4 gap-3'>
-                    { produitCarousel.map(product=>(
-                        <div key={product.id}>
-                            <div>
-                                <img src={`storage/product/${product.images[0].image}`} alt="une image" />
-                            </div>
-                            <div>
-                                <h4 className='text-lg'>{product.name}</h4>
-                                {product.promo != null?
-                                    <p><span></span></p>
-                                    :
-                                    <p>{product.price}</p>
-                                }
-                            </div>
+                   {produitCarousel.map(product => (
+                        <div
+                            key={product.id}
+                            className="transition-transform duration-300 hover:scale-105 hover:shadow-lg rounded-xl overflow-hidden cursor-pointer"
+                        >
+                            <Link href={route('product.show', product.id)}>
+                                <div>
+                                    <img
+                                        src={`storage/product/${product.images[0].image}`}
+                                        alt="une image"
+                                        className="w-full h-auto object-cover"
+                                    />
+                                </div>
+                                <div className="p-2">
+                                    <h4 className="text-lg font-semibold">{product.name}</h4>
+                                    {product.promo != null ? (
+                                        <p><span></span></p>
+                                    ) : (
+                                        <p>{product.price}</p>
+                                    )}
+                                </div>
+                            </Link>
                         </div>
-                    )) }
+                    ))}
+
                 </div>
             </section>
             <section id='counterKadir'>
@@ -186,7 +200,7 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                     </div>
                 </div>
             </section>
-            <section id='bestHome'>
+            {/* <section id='bestHome'>
                 <div className='flex gap-4 items-end'>
                     <h3 className='text-xl'>Best Seller</h3>
                     <p className='text-lg text-gray-500'>Shop</p>
@@ -197,7 +211,8 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                         <button>Preview</button>
                     </div>
                 </div>
-            </section>
+            </section> */}
+            <BestSellerShop products={products}/>
             <section id='homeLeter'>
                 <div className="flex justify-center flex-col box-border text-center gap-5 mb-5">
                     <p className='text-red-600'>join newsletter</p>

@@ -58,9 +58,9 @@ export default function Navbar() {
                     {openDropdown === "shop" && (
                         <div className="absolute mt-2 w-48 bg-white rounded-md shadow-md py-2 z-50">
                             <Link href={route('shop')} className="block px-4 py-2 hover:bg-gray-100">shop</Link>
-                            {category.map(el=>(
+                            {/* {category.map(el=>(
                                 <Link href={route('shop',el.id)} className="block px-4 py-2 hover:bg-gray-100" key={el.id}>{el.name}</Link>
-                            ))}
+                            ))} */}
                         
                         </div>
                     )}
@@ -76,7 +76,7 @@ export default function Navbar() {
                     </button>
                     {openDropdown === "blog" && (
                         <div className="absolute mt-2 w-48 bg-white rounded-md shadow-md py-2 z-50">
-                        <Link href="" className="block px-4 py-2 hover:bg-gray-100">News</Link>
+                        <Link href={route('blog')} className="block px-4 py-2 hover:bg-gray-100">Tous</Link>
                         <Link href="" className="block px-4 py-2 hover:bg-gray-100">Guides</Link>
                         </div>
                     )}

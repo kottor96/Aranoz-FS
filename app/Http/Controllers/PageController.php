@@ -11,7 +11,7 @@ use Inertia\Inertia;
 class PageController extends Controller
 {
     public function home(){
-        $products = Product::with('images')->get();
+        $products = Product::with('images')->withCount('likes')->get();
         $categories = Product_categorie::with('products','products.images')->get(); 
 
         $maxHours = 300;
