@@ -79,7 +79,7 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                 <div id='flex_home'>
                     <div className='flex gap-4'>
                         <div className='type2 relative'>
-                            <div className='absolute top-0 left-0'>
+                            <div className='absolute top-0 left-0 p-3'>
                                 <h5>{chaise.name}</h5>
                                 <p>{chaise.products[0]?.name}</p>
                             </div>
@@ -88,7 +88,7 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                             </div>
                         </div>
                         <div className='type1 relative'>
-                            <div className='absolute top-0 left-0'>
+                            <div className='absolute top-0 left-0 p-3'>
                                 <h5>{chaise.name}</h5>
                                 <p>{chaise.products[0]?.name}</p>
                             </div>
@@ -99,7 +99,7 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                     </div>
                     <div className='flex gap-4'>
                         <div className='type1 relative'>
-                            <div className='absolute top-0 left-0'>
+                            <div className='absolute top-0 left-0 p-3'>
                                 <h5>{chaise.name}</h5>
                                 <p>{chaise.products[0]?.name}</p>
                             </div>
@@ -108,7 +108,7 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                             </div>
                         </div>
                         <div className='type2 relative'>
-                            <div className='absolute top-0 left-0'>
+                            <div className='absolute top-0 left-0 p-3'>
                                 <h5>{chaise.name}</h5>
                                 <p>{chaise.products[0]?.name}</p>
                             </div>

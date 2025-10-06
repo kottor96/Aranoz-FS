@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('message');
             $table->string('name');
             $table->string('email');
-            $table->string('website');
+            $table->string('website')->nullable();
             $table->timestamps();
         });
         DB::statement('ALTER TABLE comments ADD CONSTRAINT chk_only_one_parent 

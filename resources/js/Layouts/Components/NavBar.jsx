@@ -121,10 +121,10 @@ export default function NavBar(){
                             </Link>
                             {auth.user ? (
                                     <Link
-                                        href={route('dashboard')}
+                                        href={route('home')}
                                         className="rounded-md px-4 py-2 text-gray-300 ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] "
                                     >
-                                        Dashboard
+                                        Home
                                     </Link>
                                 ) : (
                                     <>

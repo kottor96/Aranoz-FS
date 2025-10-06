@@ -52,7 +52,7 @@ export default function ProductShow({ product }) {
             className="transition-transform duration-300 flex flex-col"
             style={{ transform: `translateY(-${activeImage * 400}px)` }}
             >
-            {product.images.map((img) => (
+            {product.images.map((img,index) => (
                 <div
                     key={img.id}
                     className="w-full h-[400px] flex justify-center items-center flex-shrink-0"
