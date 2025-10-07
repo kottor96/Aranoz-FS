@@ -50,17 +50,20 @@ class ProductCategorieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product_categorie $product_categorie)
+    public function update(Request $request, $id)
     {
-        //
+        Product_categorie::findOrFail($id)->update([
+            'name'=>request()->name
+        ]);
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product_categorie $product_categorie)
+    public function destroy($id)
     {
-        $product_categorie->delete();
-        return redirect()->route('admin.category');
+        Product_categorie::findOrFail($id)->delete();
+        return back();
     }
 }

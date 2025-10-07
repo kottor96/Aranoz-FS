@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('promo')->nullable();
             $table->boolean('isPinned');
             $table->boolean('available');
-            $table->foreignId('category_id')->constrained('product_categories');
+            $table->foreignId('category_id')->constrained('product_categories')->cascadeOnDelete();
             $table->timestamps();
         });
     }

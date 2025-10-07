@@ -30,7 +30,7 @@ Route::get('/admin/dashboard', [AdminController::class,'dashboard'])->middleware
 
 Route::get('/admin/category', [AdminController::class,'product'])->name('admin.category');
 
-Route::resource('admin/category', ProductCategorieController::class)->names('admin.cat');
+Route::resource('admin/product/cat', ProductCategorieController::class)->names('admin.productCat');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

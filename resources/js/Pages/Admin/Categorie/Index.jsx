@@ -4,49 +4,48 @@ import IntroAdmin from '../Components/IntroAdmin'
 import TableSection from '../Components/TableSection';
 import { router } from '@inertiajs/react';
 
+export default function Index({ prodCat, blogCat, tagCat }) {
 
-export default function Index({prodCat,blogCat,tagCat}) {
-    
     const columns = [
         { key: "id", label: "ID" },
-        { key: "name", label: "Catégorie", editable: true, route: "categories.update" },
-        {
-            key: "edit",
-            label: "Modifier",
-            render: (row, startEdit) => (
-                <button
-                    onClick={() => startEdit(row, "name")} // ou autre colonne editable
-                    className="bg-blue-custom hover:brightness-75 text-white py-1.5 px-3 rounded-md"
-                >
-                    Modifier
-                </button>
-            ),
-        },
-        {
-            key: "delete",
-            label: "Supprimer",
-            render: (row) => (
-                <button
-                    onClick={() => router.delete(route("categories.destroy", row.id))}
-                    className="bg-red-custom hover:brightness-75 text-white py-1.5 px-3 rounded-md"
-                >
-                    Supprimer
-                </button>
-            ),
-        },
+        { key: "name", label: "Catégorie", editable: true },
+        { key: "edit", label: "Modifier" },
+        { key: "delete", label: "Supprimer" }
+    ];
+    const columnsBis = [
+        { key: "id", label: "ID" },
+        { key: "name", label: "Catégorie", editable: true },
+        { key: "delete", label: "Supprimer" }
     ];
 
     return (
         <AdminLayout>
-            <IntroAdmin titre={'Categories Setting'} text={"Aranoz - Shop System"}/>
+            <IntroAdmin titre={'Categories Setting'} text={"Aranoz - Shop System"} />
+            
             <TableSection
-                title="Gestion des catégories"
-                addLabel="Add Categories"
-                onAdd={() =>
-                    router.post(route("categories.store"), { name: "Nouvelle catégorie" })
-                }
+                title="all categories"
+                addLabel="Ajouter une catégorie"
+                onAdd={() => router.post(route("admin.productCat.store"), { name: "Nouvelle catégorie" })}
                 columns={columns}
                 data={prodCat}
+                updateRoute="admin.productCat.update"
+                deleteRoute="admin.productCat.destroy"
+            />
+            <TableSection
+                title="All blog categories"
+                addLabel="ajouter un tag"
+                onAdd={() => router.post(route("admin.productCat.store"), { name: "Nouvelle catégorie" })}
+                columns={columnsBis}
+                data={blogCat}
+                deleteRoute="admin.productCat.destroy"
+            />
+            <TableSection
+                title="Gestion des tags"
+                addLabel="ajouter un tag"
+                onAdd={() => router.post(route("admin.productCat.store"), { name: "Nouvelle catégorie" })}
+                columns={columnsBis}
+                data={tagCat}
+                deleteRoute="admin.productCat.destroy"
             />
         </AdminLayout>
     )

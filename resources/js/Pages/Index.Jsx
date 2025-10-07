@@ -6,11 +6,11 @@ import KadirSection from '@/Components/KadirSection.jsx';
 
 
 export default function Index({products, categories, maxSeconds, startTimestamp, updateInterval}) {
-
+    
     const randomProduct = useMemo(() => [...products].sort(() => Math.random() - 0.5).splice(0,4), [products]);
     const [i,setI] = useState(0);
     const afficheProd = randomProduct[i];
-    const imageDefault = afficheProd.images.find(img => img.type === "image_main");
+    const imageDefault = afficheProd.images?.find(img => img.type === "image_main");
     
     function changeProduct(arg) {
         if(arg === '+' && i < randomProduct.length - 1){
@@ -45,14 +45,14 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                 <div className='flex justify-between items-center transition-all'>
                     <div id='produitTete'>
                         <div>
-                            <h1>{afficheProd.name}</h1>
+                            <h1>{afficheProd?.name}</h1>
                         </div>
                         <div>
-                            <p>{afficheProd.description}</p>
+                            <p>{afficheProd?.description}</p>
                         </div>
                     </div>
                     <div>
-                        <img src={`storage/product/${imageDefault.image}`} alt={imageDefault.image} />
+                        <img src={`storage/product/${imageDefault?.image}`} alt={imageDefault?.image} />
                     </div>
                 </div>
                 <div id='sp_home1' className='flex items-center justify-center gap-3' >
