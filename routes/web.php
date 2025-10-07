@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogCategorieController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductCategorieController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TagController;
+use App\Http\Middleware\AdminVerif;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,9 +31,11 @@ Route::post('/comments/store',[CommentController::class,'store'])->name('comment
 
 Route::get('/admin/dashboard', [AdminController::class,'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin/category', [AdminController::class,'product'])->name('admin.category');
+Route::get('/admin/category', [AdminController::class,'product'])->middleware(AdminVerif::class)->name('admin.category');
 
-Route::resource('admin/product/cat', ProductCategorieController::class)->names('admin.productCat');
+Route::middleware(AdminVerif::class)->resource('admin/product/cat', ProductCategorieController::class)->names('admin.productCat');
+Route::middleware(AdminVerif::class)->resource('admin/blog/tag', TagController::class)->names('admin.blogTag');
+Route::middleware(AdminVerif::class)->resource('admin/blog/categorie', BlogCategorieController::class)->names('admin.blogCat');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

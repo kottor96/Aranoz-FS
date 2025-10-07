@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product_categorie;
+use App\Models\Blog_categorie;
 use Illuminate\Http\Request;
 
-class ProductCategorieController extends Controller
+class BlogCategorieController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
+        //
     }
 
     /**
@@ -20,6 +20,7 @@ class ProductCategorieController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -27,8 +28,8 @@ class ProductCategorieController extends Controller
      */
     public function store(Request $request)
     {
-        Product_categorie::create([
-            'name' => request('name'),
+        Blog_categorie::create([
+            'name'=>request('name'),
         ]);
         return back();
     }
@@ -36,7 +37,7 @@ class ProductCategorieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product_categorie $product_categorie)
+    public function show(Blog_categorie $blog_categorie)
     {
         //
     }
@@ -44,7 +45,7 @@ class ProductCategorieController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product_categorie $product_categorie)
+    public function edit(Blog_categorie $blog_categorie)
     {
         //
     }
@@ -52,12 +53,9 @@ class ProductCategorieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Blog_categorie $blog_categorie)
     {
-        Product_categorie::findOrFail($id)->update([
-            'name'=>request()->name
-        ]);
-        return back();
+        //
     }
 
     /**
@@ -65,7 +63,7 @@ class ProductCategorieController extends Controller
      */
     public function destroy($id)
     {
-        Product_categorie::findOrFail($id)->delete();
+        Blog_categorie::findOrFail($id)->delete();
         return back();
     }
 }

@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product_categorie;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class ProductCategorieController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
+        //
     }
 
     /**
@@ -20,6 +20,7 @@ class ProductCategorieController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -27,8 +28,8 @@ class ProductCategorieController extends Controller
      */
     public function store(Request $request)
     {
-        Product_categorie::create([
-            'name' => request('name'),
+        Tag::create([
+            'name'=>request('name'),
         ]);
         return back();
     }
@@ -36,7 +37,7 @@ class ProductCategorieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product_categorie $product_categorie)
+    public function show(Tag $tag)
     {
         //
     }
@@ -44,7 +45,7 @@ class ProductCategorieController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product_categorie $product_categorie)
+    public function edit(Tag $tag)
     {
         //
     }
@@ -52,12 +53,9 @@ class ProductCategorieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tag $tag)
     {
-        Product_categorie::findOrFail($id)->update([
-            'name'=>request()->name
-        ]);
-        return back();
+        //
     }
 
     /**
@@ -65,7 +63,7 @@ class ProductCategorieController extends Controller
      */
     public function destroy($id)
     {
-        Product_categorie::findOrFail($id)->delete();
+        Tag::findOrFail($id)->delete();
         return back();
     }
 }
