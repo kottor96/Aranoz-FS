@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react'
 import Layout from '../Layouts/Layout.jsx'
 import { Link } from '@inertiajs/react';
 import BestSellerShop from "./shop/Components/BestSellerShop.jsx";
+import KadirSection from '@/Components/KadirSection.jsx';
 
 
 export default function Index({products, categories, maxSeconds, startTimestamp, updateInterval}) {
@@ -33,24 +34,7 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
         }
     }
 
-    const [secondsLeft, setSecondsLeft] = useState(() => {
-        const now = Math.floor(Date.now() / 1000);
-        const elapsed = (now - startTimestamp) % maxSeconds;
-        return maxSeconds - elapsed;
-    });
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setSecondsLeft(prev => (prev - 1 + maxSeconds) % maxSeconds);
-        }, updateInterval);
-
-        return () => clearInterval(interval);
-    }, [maxSeconds, updateInterval]);
-
-    const days = Math.floor(secondsLeft / 86400);
-    const hours = Math.floor((secondsLeft % 86400) / 3600);
-    const minutes = Math.floor((secondsLeft % 3600) / 60);
-    const seconds = secondsLeft % 60;
+    
 
 
     
@@ -160,58 +144,7 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
 
                 </div>
             </section>
-            <section id='counterKadir'>
-                <div className='flex flex-col items-end'>
-                    <div>
-                        <div>
-                            <h1 className='text-xxl mb-2'>
-                                Weekly Sale on 60% 
-                                <br /> 
-                                Off All Products
-                            </h1>
-                        </div>
-                        <div>
-                            <div>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>DAYS</th>
-                                            <th>HOURS</th>
-                                            <th>MINUTE</th>
-                                            <th>SECONDS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{days}</td>
-                                            <td>{hours}</td>
-                                            <td>{minutes}</td>
-                                            <td>{seconds}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <p></p>
-                            </div>
-                            <div id='book' className='flex'>
-                                <input type="text" placeholder='Adresse Email'/>
-                                <button className='btnStyle'>BOOK NOW</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {/* <section id='bestHome'>
-                <div className='flex gap-4 items-end'>
-                    <h3 className='text-xl'>Best Seller</h3>
-                    <p className='text-lg text-gray-500'>Shop</p>
-                </div>
-                <div>
-                    <div className='flex justify-end gap-3'>
-                        <button>Next</button> |
-                        <button>Preview</button>
-                    </div>
-                </div>
-            </section> */}
+            <KadirSection maxSeconds={maxSeconds} startTimestamp={startTimestamp} updateInterval={updateInterval}/>
             <BestSellerShop products={products}/>
             <section id='homeLeter'>
                 <div className="flex justify-center flex-col box-border text-center gap-5 mb-5">

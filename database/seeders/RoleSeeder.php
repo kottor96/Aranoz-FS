@@ -19,9 +19,12 @@ class RoleSeeder extends Seeder
             [ 'name' => 'modo'],
             [ 'name' => 'admin'],
         ];
-        foreach ($roles as $role) {
-            Role::create($role);
-        }
-        User::factory()->count(10)->create();
+        Role::create($roles[0]);
+        Role::create($roles[1]);
+        Role::create($roles[2]);
+        User::factory()->count(1)->create(['role_id'=>3]);
+        User::factory()->count(4)->create(['role_id'=>2]);
+        User::factory()->count(20)->create(['role_id'=>1]);
+
     }
 }

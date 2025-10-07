@@ -37,8 +37,6 @@ class PageController extends Controller
     public function contact(){
         return Inertia::render('Contact/Contact');
     }
-    public function dashboard(){
-        return Inertia::render('Dashboard');
-    }
+    
     
 }

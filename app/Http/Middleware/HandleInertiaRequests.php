@@ -34,6 +34,8 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'role' => $request->user()->role,
+                'avatar' => $request->user()->avatar,
             ],
             'category' => Product_categorie::all(),
         ];

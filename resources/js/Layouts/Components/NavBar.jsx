@@ -5,6 +5,7 @@ import { Link, usePage } from "@inertiajs/react";
 
 export default function Navbar() {
     const { category, auth } = usePage().props;
+    
     const [openDropdown, setOpenDropdown] = useState(null);
     const dropdownRefs = {
         shop: useRef(),
@@ -102,22 +103,22 @@ export default function Navbar() {
                     {openDropdown === "user" && (
                         <div className="absolute right-0 mt-2 w-48 text-white bg-red-custom shadow-lg rounded-md py-2 z-50">
                         {auth?.user ? (
-                            <div className="absolute right-0 mt-2 w-48 bg-red-cutom text-white shadow-lg rounded-md py-2 z-50">
-                                {auth.user.role === 'admin' && (
-                                <Link href={route('admin.dashboard')} className="block px-4 py-2 hover:brightness-75">
-                                    Dashboard
-                                </Link>
+                            <>
+                                {auth.role.name === 'admin' && (
+                                    <Link href={route('dashboard')} className="block px-4 py-2 hover:brightness-75">
+                                        Dashboard
+                                    </Link>
                                 )}
-                                <Link href={route('profile')} className="block px-4 py-2 hover:brightness-75">
+                                {/* <Link href={route('profile')} className="block px-4 py-2 hover:brightness-75">
                                     Profile
-                                </Link>
-                                <Link href={route('settings')} className="block px-4 py-2 hover:brightness-75">
+                                </Link> */}
+                                {/* <Link href={route('settings')} className="block px-4 py-2 hover:brightness-75">
                                     Settings
-                                </Link>
+                                </Link> */}
                                 <Link href={route('logout')} method="post" className="block px-4 py-2 hover:brightness-75">
                                     Logout
                                 </Link>
-                            </div>
+                            </>
                             ) : (
                             <>
                                 <Link href={route('login')} className="block px-4 py-2 hover:brightness-75">Login</Link>

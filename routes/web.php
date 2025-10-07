@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
@@ -24,7 +25,9 @@ Route::get('/orders/{numero?}', [OrderController::class, 'index'])->name('orders
 
 Route::post('/comments/store',[CommentController::class,'store'])->name('comment.store');
 
-Route::get('/dashboard', [PageController::class,'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/admin/dashboard', [AdminController::class,'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('admin/cat', [AdminController::class,'product'])->name('admin.product');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

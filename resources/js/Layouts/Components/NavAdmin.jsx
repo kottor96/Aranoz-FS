@@ -60,8 +60,8 @@ export default function AdminNavbar() {
                             </button>
                             {openDropdown === "admin" && (
                                 <div className="absolute mt-2 w-48 bg-white rounded-md shadow-md py-2 z-50">
-                                    <Link href={route('admin.categories')} className="block px-4 py-2 hover:bg-gray-100">Categories</Link>
-                                    <Link href={route('admin.contact')} className="block px-4 py-2 hover:bg-gray-100">Contact</Link>
+                                    <Link href={route('admin.product')} className="block px-4 py-2 hover:bg-gray-100">Categories</Link>
+                                    {/* <Link href={route('admin.contact')} className="block px-4 py-2 hover:bg-gray-100">Contact</Link> */}
                                 </div>
                             )}
                         </div>
@@ -76,13 +76,13 @@ export default function AdminNavbar() {
                             </button>
                             {openDropdown === "user" && (
                                 <div className="absolute mt-2 w-48 bg-white rounded-md shadow-md py-2 z-50">
-                                    <Link href={route('admin.user')} className="block px-4 py-2 hover:bg-gray-100">User</Link>
+                                    {/* <Link href={route('admin.user')} className="block px-4 py-2 hover:bg-gray-100">User</Link> */}
                                 </div>
                             )}
                         </div>
 
                         {/* Orders */}
-                        <Link href={route('admin.orders')} className="hover:text-red-500 transition">Orders</Link>
+                        {/* <Link href={route('admin.orders')} className="hover:text-red-500 transition">Orders</Link> */}
 
                         {/* Blog */}
                         <div className="relative" ref={dropdownRefs.blog}>
@@ -94,7 +94,7 @@ export default function AdminNavbar() {
                             </button>
                             {openDropdown === "blog" && (
                                 <div className="absolute mt-2 w-48 bg-white rounded-md shadow-md py-2 z-50">
-                                    <Link href={route('admin.blog')} className="block px-4 py-2 hover:bg-gray-100">Blog</Link>
+                                    {/* <Link href={route('admin.blog')} className="block px-4 py-2 hover:bg-gray-100">Blog</Link> */}
                                 </div>
                             )}
                         </div>
@@ -109,8 +109,8 @@ export default function AdminNavbar() {
                             </button>
                             {openDropdown === "product" && (
                                 <div className="absolute mt-2 w-48 bg-white rounded-md shadow-md py-2 z-50">
-                                    <Link href={route('admin.product')} className="block px-4 py-2 hover:bg-gray-100">Product</Link>
-                                    <Link href={route('admin.product.liked')} className="block px-4 py-2 hover:bg-gray-100">Product liked</Link>
+                                    {/* <Link href={route('admin.product')} className="block px-4 py-2 hover:bg-gray-100">Product</Link> */}
+                                    {/* <Link href={route('admin.product.liked')} className="block px-4 py-2 hover:bg-gray-100">Product liked</Link> */}
                                 </div>
                             )}
                         </div>
