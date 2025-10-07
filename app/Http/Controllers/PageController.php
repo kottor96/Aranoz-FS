@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Blog_categorie;
+use App\Models\Contact;
 use App\Models\Product;
 use App\Models\Product_categorie;
 use Inertia\Inertia;
@@ -35,7 +36,8 @@ class PageController extends Controller
     }
 
     public function contact(){
-        return Inertia::render('Contact/Contact');
+        $contact = Contact::first();
+        return Inertia::render('Contact/Contact',compact('contact'));
     }
     
     

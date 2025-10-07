@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('street');
             $table->string('state');
             $table->string('city');
-            $table->foreignId('country_code');
+            $table->foreignId('country_code')->nullable()->constrained('countries')->nullOnDelete();
             $table->integer('zip_code');
             $table->integer('number');
             $table->string('email');
