@@ -11,9 +11,9 @@ use Inertia\Inertia;
 class AdminController extends Controller
 {
     public function product(){
-        $prodCat = Product_categorie::class;
-        $blogCat = Blog_categorie::class;
-        $tagCat = Tag::class;
+        $prodCat = Product_categorie::all();
+        $blogCat = Blog_categorie::all();
+        $tagCat = Tag::all();
         return Inertia::render('Admin/Categorie/Index',compact('prodCat','blogCat','tagCat'));
     }
     public function dashboard(){

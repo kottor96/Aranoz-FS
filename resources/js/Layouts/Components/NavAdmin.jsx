@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { Link, usePage } from "@inertiajs/react";
+import { FiUser } from "react-icons/fi";
 
 export default function AdminNavbar() {
     const { auth } = usePage().props;
@@ -34,7 +35,7 @@ export default function AdminNavbar() {
     }, [openDropdown]);
 
     return (
-        <nav className="bg-white shadow-md w-full">
+        <nav className="absolute top-0 w-full">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
 
@@ -43,8 +44,8 @@ export default function AdminNavbar() {
                         <Link href="/" className="text-2xl font-bold text-red-500">
                             Admin
                         </Link>
-                        <span className="text-sm text-brown-600 bg-brown-100 px-2 py-1 rounded-full">
-                            {auth.user.role}
+                        <span className="text-sm text-brown-600 bg-brun-custom px-2 py-1 rounded-full">
+                            {auth.role.name}
                         </span>
                     </div>
 
@@ -60,7 +61,7 @@ export default function AdminNavbar() {
                             </button>
                             {openDropdown === "admin" && (
                                 <div className="absolute mt-2 w-48 bg-white rounded-md shadow-md py-2 z-50">
-                                    <Link href={route('admin.product')} className="block px-4 py-2 hover:bg-gray-100">Categories</Link>
+                                    <Link href={route('admin.category')} className="block px-4 py-2 hover:bg-gray-100">Categories</Link>
                                     {/* <Link href={route('admin.contact')} className="block px-4 py-2 hover:bg-gray-100">Contact</Link> */}
                                 </div>
                             )}
@@ -138,11 +139,13 @@ export default function AdminNavbar() {
                             onClick={() => toggleDropdown("profile")}
                             className="p-2 rounded-full hover:bg-gray-100 transition"
                         >
+                            {auth.avatar ?  
                             <img
-                                src={auth.user.avatar ? `/storage/${auth.user.avatar}` : "/images/default-avatar.png"}
+                                src={`/storage/${auth.avatar}`}
                                 alt="admin"
                                 className="w-10 h-10 rounded-full object-cover border border-gray-300"
                             />
+                            : <FiUser/>}
                         </button>
                         {openDropdown === "profile" && (
                             <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-50">

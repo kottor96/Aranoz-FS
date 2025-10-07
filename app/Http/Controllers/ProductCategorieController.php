@@ -60,6 +60,7 @@ class ProductCategorieController extends Controller
      */
     public function destroy(Product_categorie $product_categorie)
     {
-        //
+        $product_categorie->delete();
+        return redirect()->route('admin.category');
     }
 }

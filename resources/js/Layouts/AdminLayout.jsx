@@ -4,13 +4,13 @@ import Footer from './Components/Footer';
 export default function AdminLayout({children}) {
   return (
     <div>
-        <header>
-            <NavAdmin/>
-        </header>
-        <main>
-            {children}
-        </main>
-        <Footer />
+      <header>
+          <NavAdmin/>
+      </header>
+      <main>
+          {children}
+      </main>
+      <Footer />
     </div>
   )
 }
