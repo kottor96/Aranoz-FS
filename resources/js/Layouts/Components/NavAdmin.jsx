@@ -139,13 +139,21 @@ export default function AdminNavbar() {
                             onClick={() => toggleDropdown("profile")}
                             className="p-2 rounded-full hover:bg-gray-100 transition"
                         >
-                            {auth.avatar ?  
-                            <img
-                                src={`/storage/${auth.avatar}`}
-                                alt="admin"
-                                className="w-10 h-10 rounded-full object-cover border border-gray-300"
-                            />
-                            : <FiUser/>}
+                            {auth.avatar?.image ? (
+                                <img
+                                    src={
+                                        auth.avatar.type === "file"
+                                        ? `/storage/avatars/${auth.avatar.image}`
+                                        : auth.avatar.image
+                                    }
+                                    alt={`${auth.user.name} avatar`}
+                                    className="w-10 h-10 rounded-full object-cover"
+                                />
+                            ) : (
+                                <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-sm text-gray-600">
+                                    {auth.user.name ? auth.user.name.charAt(0).toUpperCase() : "?"}
+                                </div>
+                            )}
                         </button>
                         {openDropdown === "profile" && (
                             <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-50">

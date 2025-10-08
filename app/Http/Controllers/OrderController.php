@@ -11,7 +11,7 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($numero = null)
+    public function index2($numero = null)
     {
         // Si aucun numéro n'est fourni, ne renvoie aucune commande
         $orders = [];
@@ -22,12 +22,13 @@ class OrderController extends Controller
               ->first();
         }
 
-        return Inertia::render('shop/TrackOrder', [
-            'orders' => $orders,
-            'numeroRecherche' => $numero ?? '',
-        ]);
+        return Inertia::render('shop/TrackOrder', compact('orders','numeroRecherche'??''));
     }
 
+    public function index(){
+        $orders = Order::all();
+        return Inertia::render('Admin/Order/Index',compact('orders'));
+    }
 
     /**
      * Show the form for creating a new resource.

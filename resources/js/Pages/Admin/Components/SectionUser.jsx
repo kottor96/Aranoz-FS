@@ -1,7 +1,7 @@
 import { router } from '@inertiajs/react';
 import React from 'react';
 
-export default function SectionUser({ users, onDelete }) {
+export default function SectionUser({ users }) {
   const roleBadgeClass = (role) => {
     const id = role && (typeof role === 'number' ? role : (role.id ?? null));
     const parsedId = id ? Number(id) : null;
@@ -40,70 +40,74 @@ export default function SectionUser({ users, onDelete }) {
                 const isAdmin = roleName.includes('admin') || user.role?.id === 3;
 
                 return (
-                  <tr key={user.id}>
-                    {/* Name + avatar */}
-                    <td className="px-6 py-4 flex items-center gap-3">
-                      {user.avatar?.image ? (
-                        <img
-                          src={user.avatar.image}
-                          alt={`${user.name} avatar`}
-                          className="w-10 h-10 rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-sm text-gray-600">
-                          {user.name ? user.name.charAt(0).toUpperCase() : '?'}
-                        </div>
-                      )}
-                      <span className="font-medium text-gray-900">{user.name}</span>
-                    </td>
+                    <tr key={user.id}>
+                        {/* Name + avatar */}
+                        <td className="px-6 py-4 flex items-center gap-3">
+                            {user.avatar?.image ? (
+                                <img
+                                src={
+                                  user.avatar.type === "file"
+                                  ? `/storage/avatars/${user.avatar.image}`
+                                  : user.avatar.image
+                                }
+                                alt={`${user.name} avatar`}
+                                className="w-10 h-10 rounded-full object-cover"
+                                />
+                            ) : (
+                                <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-sm text-gray-600">
+                                {user.name ? user.name.charAt(0).toUpperCase() : "?"}
+                                </div>
+                            )}
+                            <span className="font-medium text-gray-900">{user.name}</span>
+                        </td>
 
-                    {/* Email */}
-                    <td className="px-6 py-4 text-sm text-gray-700">{user.email}</td>
+                        {/* Email */}
+                        <td className="px-6 py-4 text-sm text-gray-700">{user.email}</td>
 
-                    {/* Statut (role) */}
-                    <td className="px-6 py-4">
-                      <span
-                        className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${roleBadgeClass(user.role)}`}
-                      >
-                        {user.role?.name ?? '—'}
-                      </span>
-                    </td>
-
-                    {/* Show */}
-                    {/* <td className="px-6 py-4 text-center">
-                      <button
-                        type="button"
-                        onClick={() => onShow ? onShow(user) : null}
-                        className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                      >
-                        Show
-                      </button>
-                    </td> */}
-
-                    {/* Edit */}
-                    <td className="px-6 py-4 text-center">
-                      <button
-                        type="button"
-                        onClick={() => router.get(route('admin.users.edit',user.id))}
-                        className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
-                      >
-                        Edit
-                      </button>
-                    </td>
-
-                    {/* Delete — masqué si admin */}
-                    <td className="px-6 py-4 text-center">
-                      {!isAdmin && (
-                        <button
-                          type="button"
-                          onClick={() => router.delete(route('admin.users.destroy',user.id))}
-                          className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                        {/* Statut (role) */}
+                        <td className="px-6 py-4">
+                        <span
+                            className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${roleBadgeClass(user.role)}`}
                         >
-                          Delete
+                            {user.role?.name ?? '—'}
+                        </span>
+                        </td>
+
+                        {/* Show */}
+                        {/* <td className="px-6 py-4 text-center">
+                        <button
+                            type="button"
+                            onClick={() => onShow ? onShow(user) : null}
+                            className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                        >
+                            Show
                         </button>
-                      )}
-                    </td>
-                  </tr>
+                        </td> */}
+
+                        {/* Edit */}
+                        <td className="px-6 py-4 text-center">
+                        <button
+                            type="button"
+                            onClick={() => router.get(route('admin.users.edit',user.id))}
+                            className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                        >
+                            Edit
+                        </button>
+                        </td>
+
+                        {/* Delete — masqué si admin */}
+                        <td className="px-6 py-4 text-center">
+                        {!isAdmin && (
+                            <button
+                            type="button"
+                            onClick={() => router.delete(route('admin.users.destroy',user.id))}
+                            className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                            >
+                            Delete
+                            </button>
+                        )}
+                        </td>
+                    </tr>
                 );
               })}
             </tbody>
