@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductCategorieController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminVerif;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,7 +41,9 @@ Route::middleware(AdminVerif::class)->resource('admin/blog/categorie', BlogCateg
 
 Route::middleware(AdminVerif::class)->resource('admin/contact', ContactController::class)->names('admin.contact');
 
-// Route::middleware()
+
+Route::middleware(AdminVerif::class)->resource('admin/user', UserController::class)->names('admin.users');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
