@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogCategorieController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductCategorieController;
@@ -36,6 +37,10 @@ Route::get('/admin/category', [AdminController::class,'product'])->middleware(Ad
 Route::middleware(AdminVerif::class)->resource('admin/product/cat', ProductCategorieController::class)->names('admin.productCat');
 Route::middleware(AdminVerif::class)->resource('admin/blog/tag', TagController::class)->names('admin.blogTag');
 Route::middleware(AdminVerif::class)->resource('admin/blog/categorie', BlogCategorieController::class)->names('admin.blogCat');
+
+Route::middleware(AdminVerif::class)->resource('admin/contact', ContactController::class)->names('admin.contact');
+
+// Route::middleware()
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
