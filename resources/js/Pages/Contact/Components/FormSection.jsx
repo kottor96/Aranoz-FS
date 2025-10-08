@@ -37,7 +37,7 @@ export default function FormSection({contact}) {
                 <Mail className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                 <div>
                   <p className="text-black font-semibold">contact@example.com</p>
-                  <p className="text-gray-500">Sous-texte ici</p>
+                  <p className="text-gray-500">Send us your query anytime!</p>
                 </div>
               </div>
             </div>

@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 
 class RoleSeeder extends Seeder
 {
@@ -25,6 +27,12 @@ class RoleSeeder extends Seeder
         User::factory()->count(1)->create(['role_id'=>3]);
         User::factory()->count(4)->create(['role_id'=>2]);
         User::factory()->count(20)->create(['role_id'=>1]);
-
+        User::factory()->count(1)->create([
+            'name' => 'Aurélien Mertens',
+            'email' => 'gardien243@gmail.com',
+            'role_id' => 3,
+        ]);
+        
     }
+    
 }
