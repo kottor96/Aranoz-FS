@@ -46,7 +46,7 @@ export default function BlogAdminSection({ blogs }) {
                     <td className="px-6 py-4">
                       {blog.image?.image ? (
                         <img
-                          src={`/storage/blog/${blog.image.image}`}
+                          src={blog.image.image}
                           alt={blog.title}
                           className="w-16 h-16 object-cover rounded"
                         />

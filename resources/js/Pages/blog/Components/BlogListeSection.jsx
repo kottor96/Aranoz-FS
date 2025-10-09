@@ -16,7 +16,7 @@ export default function BlogListSection({blogs,filters,search,setSearch,selected
                 <div key={blog.id} className="relative bg-white rounded-lg overflow-hidden shadow-md">
                     <div className="aspect-w-16 aspect-h-9">
                     <img
-                        src={`/storage/blog/${blog.image.image}`}
+                        src={blog.image.image}
                         alt={blog.title}
                         className="w-full h-full object-cover"
                     />

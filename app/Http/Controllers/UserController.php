@@ -59,7 +59,7 @@ class UserController extends Controller
 
             // On met le chemin complet public dans la DB
             $avatarData = [
-                'image' => '/storage/avatars/' . $filename,
+                'image' => "/storage/avatars/$filename",
                 'type' => 'file',
             ];
         } elseif ($request->filled('image_url')) {

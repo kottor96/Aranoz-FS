@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { useForm, Link } from '@inertiajs/react';
+import { useForm, Link, router } from '@inertiajs/react';
 
 export default function BlogEditSection({ blog, blogCat, blogTag }) {
-  const { data, setData, post, progress } = useForm({
+  
+  const { data, setData, progress } = useForm({
     title: blog.title || '',
     blog_categorie_id: blog.blog_categorie?.id || '',
     description: blog.description || '',
     image_file: null,
     image_url: '',
-    tags: blog.bloc_tags?.map(tag => tag.id) || [],
+    tags: blog.tags?.map(tag => tag.id) || [],
   });
 
   // Image file / URL exclusifs
@@ -32,14 +33,31 @@ export default function BlogEditSection({ blog, blogCat, blogTag }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    post(route('admin.blog.update', blog.id), {
-      forceFormData: true,
+
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('blog_categorie_id', data.blog_categorie_id);
+    formData.append('description', data.description);
+    formData.append('tags', JSON.stringify(data.tags));
+
+    if (data.image_file) {
+      formData.append('image_file', data.image_file);
+    } else if (data.image_url) {
+      formData.append('image_url', data.image_url);
+    }
+
+    formData.append('_method', 'PUT'); // important pour Laravel
+
+    router.post(route('admin.blog.update', blog.id), formData, {
+      forceFormData: true, 
     });
   };
 
+
+
   return (
     <section className="py-8">
-      <div className="max-w-3xl mx-auto px-4">
+      <div className="max-w-4xl mx-auto px-4">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Modifier le blog</h2>
           <Link href={route('admin.blog.index')} className="text-blue-500 hover:underline">
@@ -49,69 +67,71 @@ export default function BlogEditSection({ blog, blogCat, blogTag }) {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Image actuelle */}
-          {blog.image?.url && (
-            <div>
+          {blog.image?.image && (
+            <div className="mb-6">
               <p className="text-sm text-gray-500 mb-2">Image actuelle :</p>
               <img
-                src={blog.image.url}
+                src={blog.image.image}
                 alt="Image actuelle"
                 className="w-full h-64 object-cover rounded-lg"
               />
             </div>
           )}
 
-          {/* Image fichier */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Nouvelle image (fichier)</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="border p-2 rounded w-full"
-            />
-            {data.image_file && (
-              <p className="text-xs text-gray-500 mt-1">Fichier sélectionné : {data.image_file.name}</p>
-            )}
+          {/* Image fichier / URL côte à côte */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-2">Nouvelle image (fichier)</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="border p-2 rounded w-full"
+              />
+              {data.image_file && (
+                <p className="text-xs text-gray-500 mt-1">Fichier sélectionné : {data.image_file.name}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Nouvelle image (URL)</label>
+              <input
+                type="url"
+                value={data.image_url}
+                onChange={handleUrlChange}
+                placeholder="https://exemple.com/image.jpg"
+                className="border p-2 rounded w-full"
+              />
+            </div>
           </div>
 
-          {/* Image URL */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Nouvelle image (URL)</label>
-            <input
-              type="url"
-              value={data.image_url}
-              onChange={handleUrlChange}
-              placeholder="https://exemple.com/image.jpg"
-              className="border p-2 rounded w-full"
-            />
-          </div>
+          {/* Titre et Catégorie côte à côte */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-2">Titre</label>
+              <input
+                type="text"
+                value={data.title}
+                onChange={(e) => setData('title', e.target.value)}
+                className="border p-2 rounded w-full"
+                required
+              />
+            </div>
 
-          {/* Titre */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Titre</label>
-            <input
-              type="text"
-              value={data.title}
-              onChange={(e) => setData('title', e.target.value)}
-              className="border p-2 rounded w-full"
-              required
-            />
-          </div>
-
-          {/* Catégorie */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Catégorie</label>
-            <select
-              value={data.blog_categorie_id}
-              onChange={(e) => setData('blog_categorie_id', e.target.value)}
-              className="border p-2 rounded w-full"
-              required
-            >
-              <option value="">Choisir une catégorie</option>
-              {blogCat.map(cat => (
-                <option key={cat.id} value={cat.id}>{cat.name}</option>
-              ))}
-            </select>
+            <div>
+              <label className="block text-sm font-medium mb-2">Catégorie</label>
+              <select
+                value={data.blog_categorie_id}
+                onChange={(e) => setData('blog_categorie_id', e.target.value)}
+                className="border p-2 rounded w-full"
+                required
+              >
+                <option value="">Choisir une catégorie</option>
+                {blogCat.map(cat => (
+                  <option key={cat.id} value={cat.id}>{cat.name}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {/* Tags */}
@@ -155,5 +175,6 @@ export default function BlogEditSection({ blog, blogCat, blogTag }) {
         </form>
       </div>
     </section>
+
   );
 }
