@@ -14,8 +14,6 @@ export default function Blog({ blogs, filters,cat }) {
     const matchSearch = blog.title.toLowerCase().includes(search.toLowerCase());
     return matchCat && matchSearch;
   });
-  console.log(selectedCat);
-  console.log(blogs[0].blog_categorie_id);
   
   return (
     <Layout>

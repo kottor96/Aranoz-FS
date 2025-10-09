@@ -64,4 +64,7 @@ class User extends Authenticatable
     public function paniers(){
         return $this->hasMany(Panier::class);
     }
+    public function blog(){
+        return $this->hasOne(Blog::class);
+    }
 }

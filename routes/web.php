@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogCategorieController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
@@ -45,6 +46,8 @@ Route::middleware(AdminVerif::class)->resource('admin/contact', ContactControlle
 Route::middleware(AdminVerif::class)->resource('admin/user', UserController::class)->names('admin.users');
 
 Route::middleware(AdminVerif::class)->resource('admin/order', OrderController::class)->names('admin.order');
+
+Route::middleware(AdminVerif::class)->resource('admin/blog', BlogController::class)->names('admin.blog');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
