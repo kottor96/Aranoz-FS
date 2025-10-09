@@ -3,9 +3,9 @@ import { router } from "@inertiajs/react";
 
 export default function PendingOrders({ orders }) {
     const pendingOrders = orders.filter(order => order.status === "pending");
-
+    
     const showMore = (order) => {
-        router.push("", { id: order.id });
+        router.get(route('admin.order.show',order.id));
     };
 
     const completeOrder = (order) => {
