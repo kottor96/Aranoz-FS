@@ -26,5 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OrderItemSeeder::class);
         $this->call(CountrySeeder::class);
         $this->call(ContactSeeder::class);
+        $this->call(TagSeeder::class);
+        $this->call(BlogTagSeeder::class);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Blog_categorie;
+use App\Models\Blog_tag;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -44,9 +46,12 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Blog $blog)
+    public function edit($id)
     {
-        //
+        $blogTag = Blog_tag::all();
+        $blogCat = Blog_categorie::all();
+        $blog = Blog::with('user','blog_categorie','tags','image')->findOrFail($id);
+        return Inertia::render('Admin/Blog/Edit',compact('blog','blogCat','blogTag'));
     }
 
     /**

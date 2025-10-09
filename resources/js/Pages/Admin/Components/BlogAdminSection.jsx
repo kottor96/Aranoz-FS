@@ -8,7 +8,6 @@ export default function BlogAdminSection({ blogs }) {
       router.delete(route('admin.blog.destroy', blogId));
     }
   };
-  console.log(blogs);
   
   return (
     <section className="py-10">
@@ -83,7 +82,7 @@ export default function BlogAdminSection({ blogs }) {
                     <td className="px-6 py-4 text-right">
                       <div className="flex justify-end gap-2">
                         <Link
-                          href={route('admin.blog.show', blog.id)}
+                          href={route('blog.show', blog.id)}
                           className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
                         >
                           Show

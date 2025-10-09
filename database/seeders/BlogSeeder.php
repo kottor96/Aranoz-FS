@@ -32,6 +32,18 @@ class BlogSeeder extends Seeder
                 'description' => 'MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. Who has the willpower to actually. ',
                 'blog_categorie_id' => 4,
                 'user_id' => 1
+            ],
+            [
+                'title' => "Today's Fashion first tour",
+                'description' => 'akndaisndpsandpoaonsdsapondoasndsao,d ',
+                'blog_categorie_id' => 2 ,
+                'user_id' => 1
+            ],
+            [
+                'title' => "Today's Fashion first tour",
+                'description' => 'azertyuioqszdefghjuzcuzaixncasxaposkxpksapoxka ',
+                'blog_categorie_id' => 5,
+                'user_id' => 1
             ]
         ];
                         

@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Blog extends Model
 {
     protected $filalble = ['title','blog_categorie_id','description','user_id'];
-    public function bloc_tags(){
-        return $this->hasMany(Blog_tag::class);
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'blog_tags', 'blog_id', 'tag_id');
     }
     public function blog_categorie(){
         return $this->belongsTo(Blog_categorie::class);
