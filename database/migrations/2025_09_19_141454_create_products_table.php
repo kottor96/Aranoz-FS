@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('stock');
             $table->integer('promo')->nullable();
-            $table->boolean('isPinned');
-            $table->boolean('available');
+            $table->boolean('isPinned')->default(false);
+            $table->boolean('available')->default(true);
             $table->foreignId('category_id')->constrained('product_categories')->cascadeOnDelete();
             $table->timestamps();
         });

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import Layout from '../Layouts/Layout.jsx'
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import BestSellerShop from "./shop/Components/BestSellerShop.jsx";
 import KadirSection from '@/Components/KadirSection.jsx';
 
@@ -37,8 +37,9 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
     const catAvecProd = categories.filter(el => el.products.length > 0);
     const categoriesAff = [...catAvecProd].sort(() => Math.random() - 0.5).splice(0,4);
 
-    
-
+    function deplacer($cat){
+        router.get(route('shop',$cat.id))
+    }
     return (
         <Layout>
             <section id='first_section'>
@@ -52,7 +53,7 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                         </div>
                     </div>
                     <div>
-                        <img src={`storage/product/${imageDefault?.image}`} alt={imageDefault?.image} />
+                        <img src={`${imageDefault?.image}`} alt={imageDefault?.image} />
                     </div>
                 </div>
                 <div id='sp_home1' className='flex items-center justify-center gap-3' >
@@ -66,69 +67,69 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                 </div>
                 <div id="flex_home">
                     <div className="flex gap-4">
-                    {categoriesAff[0] && (
-                        <div className="type2 relative">
-                        <div className="absolute top-0 left-0 p-3">
-                            <h5>{categoriesAff[0].name}</h5>
-                            <p>{categoriesAff[0].products[0].name}</p>
-                        </div>
-                        <div className="absolute bottom-0 right-0 h-1/2">
-                            <img
-                                src={`storage/product/${categoriesAff[0].products[0].images[0].image}`}
-                                alt={categoriesAff[0].products[0].name}
-                                className='h-full w-full' 
-                            />
-                        </div>
-                        </div>
-                    )}
-                    {categoriesAff[1] && (
-                        <div className="type1 relative">
-                        <div className="absolute top-0 left-0 p-3">
-                            <h5>{categoriesAff[1].name}</h5>
-                            <p>{categoriesAff[1].products[0].name}</p>
-                        </div>
-                        <div className="absolute bottom-0 right-0 h-1/2">
-                            <img
-                                src={`storage/product/${categoriesAff[1].products[0].images[0].image}`}
-                                alt={categoriesAff[1].products[0].name}
-                                className='h-full w-full'
-                            />
-                        </div>
-                        </div>
-                    )}
+                        {categoriesAff[0] && (
+                            <div className="type2 relative cursor-pointer" onClick={()=>deplacer(categoriesAff[0])}>
+                                <div className="absolute top-0 left-0 p-3">
+                                    <h5>{categoriesAff[0].name}</h5>
+                                    <p>{categoriesAff[0].products[0].name}</p>
+                                </div>
+                                <div className="absolute bottom-0 right-0 h-1/2">
+                                    <img
+                                        src={`${categoriesAff[0].products[0].images[0].image}`}
+                                        alt={categoriesAff[0].products[0].name}
+                                        className='h-full w-full' 
+                                    />
+                                </div>
+                            </div>
+                        )}
+                        {categoriesAff[1] && (
+                            <div className="type1 relative cursor-pointer" onClick={()=>deplacer(categoriesAff[0])}>
+                                <div className="absolute top-0 left-0 p-3">
+                                    <h5>{categoriesAff[1].name}</h5>
+                                    <p>{categoriesAff[1].products[0].name}</p>
+                                </div>
+                                <div className="absolute bottom-0 right-0 h-1/2">
+                                    <img
+                                        src={`${categoriesAff[1].products[0].images[0].image}`}
+                                        alt={categoriesAff[1].products[0].name}
+                                        className='h-full w-full'
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <div className="flex gap-4">
-                    {categoriesAff[2] && (
-                        <div className="type1 relative">
-                        <div className="absolute top-0 left-0 p-3">
-                            <h5>{categoriesAff[2].name}</h5>
-                            <p>{categoriesAff[2].products[0].name}</p>
-                        </div>
-                        <div className="absolute bottom-0 right-0 h-1/2">
-                            <img
-                                src={`storage/product/${categoriesAff[2].products[0].images[0].image}`}
-                                alt={categoriesAff[2].products[0].name}
-                                className='h-full w-full'
-                            />
-                        </div>
-                        </div>
-                    )}
-                    {categoriesAff[3] && (
-                        <div className="type2 relative">
-                        <div className="absolute top-0 left-0 p-3">
-                            <h5>{categoriesAff[3].name}</h5>
-                            <p>{categoriesAff[3].products[0].name}</p>
-                        </div>
-                        <div className="absolute bottom-0 right-0 h-1/2">
-                            <img
-                                src={`storage/product/${categoriesAff[3].products[0].images[0].image}`}
-                                alt={categoriesAff[3].products[0].name}
-                                className='h-full w-full'
-                            />
-                        </div>
-                        </div>
-                    )}
+                        {categoriesAff[2] && (
+                            <div className="type1 relative cursor-pointer" onClick={()=>deplacer(categoriesAff[0])}>
+                                <div className="absolute top-0 left-0 p-3">
+                                    <h5>{categoriesAff[2].name}</h5>
+                                    <p>{categoriesAff[2].products[0].name}</p>
+                                </div>
+                                <div className="absolute bottom-0 right-0 h-1/2">
+                                    <img
+                                        src={`${categoriesAff[2].products[0].images[0].image}`}
+                                        alt={categoriesAff[2].products[0].name}
+                                        className='h-full w-full'
+                                    />
+                                </div>
+                            </div>
+                        )}
+                        {categoriesAff[3] && (
+                            <div className="type2 relative cursor-pointer" onClick={()=>deplacer(categoriesAff[0])}>
+                                <div className="absolute top-0 left-0 p-3">
+                                    <h5>{categoriesAff[3].name}</h5>
+                                    <p>{categoriesAff[3].products[0].name}</p>
+                                </div>
+                                <div className="absolute bottom-0 right-0 h-1/2">
+                                    <img
+                                        src={`${categoriesAff[3].products[0].images[0].image}`}
+                                        alt={categoriesAff[3].products[0].name}
+                                        className='h-full w-full'
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>
@@ -151,7 +152,7 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                             <Link href={route('product.show', product.id)}>
                                 <div>
                                     <img
-                                        src={`storage/product/${product.images[0].image}`}
+                                        src={`${product.images[0].image}`}
                                         alt="une image"
                                         className="w-full h-auto object-cover"
                                     />

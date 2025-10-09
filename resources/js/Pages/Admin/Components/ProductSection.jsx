@@ -2,94 +2,96 @@ import React from 'react';
 import { Link } from '@inertiajs/react';
 
 export default function ProductSection({ products }) {
-  return (
-    <section className="py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className='text-end'>
-                <Link
-                    href={route('admin.product.create')}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-                >
-                    Add New Product
-                </Link>
-            </div>
-            <div className="flex items-center mb-6">
-                <h2 className="text-2xl font-bold">All Product</h2>
-            </div>
+    console.log(products);
+    
+    return (
+        <section className="py-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className='text-end'>
+                    <Link
+                        href={route('admin.product.create')}
+                        className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+                    >
+                        Add New Product
+                    </Link>
+                </div>
+                <div className="flex items-center mb-6">
+                    <h2 className="text-2xl font-bold">All Product</h2>
+                </div>
 
-            <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-200">
-                <thead>
-                <tr className="bg-gray-100 text-left">
-                    <th className="px-6 py-3 border-b">Picture</th>
-                    <th className="px-6 py-3 border-b">Product</th>
-                    <th className="px-6 py-3 border-b">Category</th>
-                    <th className="px-6 py-3 border-b">Stock</th>
-                    <th className="px-6 py-3 border-b">Show</th>
-                    <th className="px-6 py-3 border-b">Edit</th>
-                    <th className="px-6 py-3 border-b">Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                {products.map((product) => (
-                    <tr key={product.id} className="hover:bg-gray-50">
-                    {/* Image */}
-                    <td className="px-6 py-4 border-b">
-                        <img
-                        src={`/storage/product/${product.images[0].image}`}
-                        alt={product.name}
-                        className="w-16 h-16 object-cover rounded"
-                        />
-                    </td>
-
-                    {/* Product Name */}
-                    <td className="px-6 py-4 border-b">{product.name}</td>
-
-                    {/* Category */}
-                    <td className="px-6 py-4 border-b">
-                        {product.category ? product.category.name : '-'}
-                    </td>
-
-                    {/* Stock */}
-                    <td className="px-6 py-4 border-b">{product.stock}</td>
-
-                    {/* Show */}
-                    <td className="px-6 py-4 border-b">
-                        <Link
-                        href={route('admin.product.show', product.id)}
-                        className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                        >
-                        Show
-                        </Link>
-                    </td>
-
-                    {/* Edit */}
-                    <td className="px-6 py-4 border-b">
-                        <Link
-                        href={route('admin.product.edit', product.id)}
-                        className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                        >
-                        Edit
-                        </Link>
-                    </td>
-
-                    {/* Delete */}
-                    <td className="px-6 py-4 border-b">
-                        <Link
-                        href={route('admin.product.destroy', product.id)}
-                        method="delete"
-                        as="button"
-                        className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                        >
-                        Delete
-                        </Link>
-                    </td>
+                <div className="overflow-x-auto">
+                <table className="min-w-full bg-white border border-gray-200">
+                    <thead>
+                    <tr className="bg-gray-100 text-left">
+                        <th className="px-6 py-3 border-b">Picture</th>
+                        <th className="px-6 py-3 border-b">Product</th>
+                        <th className="px-6 py-3 border-b">Category</th>
+                        <th className="px-6 py-3 border-b">Stock</th>
+                        <th className="px-6 py-3 border-b">Show</th>
+                        <th className="px-6 py-3 border-b">Edit</th>
+                        <th className="px-6 py-3 border-b">Delete</th>
                     </tr>
-                ))}
-                </tbody>
-            </table>
-            </div>
-      </div>
-    </section>
-  );
+                    </thead>
+                    <tbody>
+                    {products.map((product) => (
+                        <tr key={product.id} className="hover:bg-gray-50">
+                        {/* Image */}
+                        <td className="px-6 py-4 border-b">
+                            <img
+                            src={`${product.images[0].image}`}
+                            alt={product.name}
+                            className="w-16 h-16 object-cover rounded"
+                            />
+                        </td>
+
+                        {/* Product Name */}
+                        <td className="px-6 py-4 border-b">{product.name}</td>
+
+                        {/* Category */}
+                        <td className="px-6 py-4 border-b">
+                            {product.category ? product.category.name : '-'}
+                        </td>
+
+                        {/* Stock */}
+                        <td className="px-6 py-4 border-b">{product.stock}</td>
+
+                        {/* Show */}
+                        <td className="px-6 py-4 border-b">
+                            <Link
+                            href={route('admin.product.show', product.id)}
+                            className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                            >
+                            Show
+                            </Link>
+                        </td>
+
+                        {/* Edit */}
+                        <td className="px-6 py-4 border-b">
+                            <Link
+                            href={route('admin.product.edit', product.id)}
+                            className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                            >
+                            Edit
+                            </Link>
+                        </td>
+
+                        {/* Delete */}
+                        <td className="px-6 py-4 border-b">
+                            <Link
+                            href={route('admin.product.destroy', product.id)}
+                            method="delete"
+                            as="button"
+                            className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                            >
+                            Delete
+                            </Link>
+                        </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+                </div>
+        </div>
+        </section>
+    );
 }

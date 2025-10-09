@@ -111,13 +111,13 @@ export default function AdminNavbar() {
                             {openDropdown === "product" && (
                                 <div className="absolute mt-2 w-48 bg-white rounded-md shadow-md py-2 z-50">
                                     <Link href={route('admin.product.index')} className="block px-4 py-2 hover:bg-gray-100">Product</Link>
-                                    {/* <Link href={route('admin.product.liked')} className="block px-4 py-2 hover:bg-gray-100">Product liked</Link> */}
+                                    <Link href={route('like')} className="block px-4 py-2 hover:bg-gray-100">Product liked</Link>
                                 </div>
                             )}
                         </div>
 
                         {/* Mailbox */}
-                        <div className="relative" ref={dropdownRefs.mailbox}>
+                        {/* <div className="relative" ref={dropdownRefs.mailbox}>
                             <button
                                 onClick={() => toggleDropdown("mailbox")}
                                 className="flex items-center hover:text-red-500 transition"
@@ -130,7 +130,7 @@ export default function AdminNavbar() {
                                     <Link href={route('admin.message.archived')} className="block px-4 py-2 hover:bg-gray-100">Archived</Link>
                                 </div>
                             )}
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Profil + Avatar */}
@@ -142,9 +142,7 @@ export default function AdminNavbar() {
                             {auth.avatar?.image ? (
                                 <img
                                     src={
-                                        auth.avatar.type === "file"
-                                        ? `/storage/avatars/${auth.avatar.image}`
-                                        : auth.avatar.image
+                                        auth.avatar.image
                                     }
                                     alt={`${auth.user.name} avatar`}
                                     className="w-10 h-10 rounded-full object-cover"

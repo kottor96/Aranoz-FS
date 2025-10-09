@@ -322,6 +322,9 @@ class ProductSeeder extends Seeder
             ]); 
 
             foreach ($p['images'] as $image) {
+                // On s'assure que le chemin est correct
+                $image['image'] = "/storage/product/{$image['image']}";
+                $image['product_id'] = $product->id; 
                 Image_product::create($image);
             }
         }

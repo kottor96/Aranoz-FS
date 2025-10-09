@@ -1,6 +1,7 @@
 import AdminLayout from '@/Layouts/AdminLayout'
 import React from 'react'
 import IntroAdmin from '../Components/IntroAdmin'
+import ProductModifOrCreate from '../Components/ProductModifOrCreate';
 
 export default function Create({categories}) {
   return (

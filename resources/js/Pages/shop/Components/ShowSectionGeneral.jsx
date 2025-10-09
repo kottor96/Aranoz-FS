@@ -6,7 +6,6 @@ export default function ProductShow({ product }) {
     const startY = useRef(0);
     const currentY = useRef(0);
     const isDragging = useRef(false);
-    console.log(product);
     
     const totalImages = product.images.length;
 
@@ -58,7 +57,7 @@ export default function ProductShow({ product }) {
                     className="w-full h-[400px] flex justify-center items-center flex-shrink-0"
                 >
                 <img
-                    src={`/storage/product/${img.image}`}
+                    src={`${img.image}`}
                     alt={`${product.name} ${index}`}
                     className="object-contain w-full h-full"
                 />
@@ -78,7 +77,7 @@ export default function ProductShow({ product }) {
                 onClick={() => setActiveImage(index)}
             >
                 <img
-                src={`/storage/product/${product.images[index].image}`}
+                src={`${product.images[index].image}`}
                 alt={`${product.name} ${index}`}
                 className="max-h-full max-w-full object-contain"
                 />

@@ -24,6 +24,7 @@ Route::get('/blog/{cat?}',[PageController::class,'blog'])->name('blog');
 Route::get('/blog/{id}/show',[PageController::class,'blogShow'])->name('blog.show');
 
 Route::get('/shop/{cat?}',[ProductController::class,'index2'])->name('shop');
+Route::get('/admin/product/liked',[ProductController::class,'like'])->name('like');
 Route::get('/product/{id}/show',[ProductController::class,'show'])->name('product.show');
 
 Route::get('/contact',[PageController::class,'contact'])->name('contact');

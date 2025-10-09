@@ -55,7 +55,7 @@ export default function BestSellerShop({ products }) {
                     >
                     <div className="h-48 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
                         <img 
-                        src={`/storage/product/${product.images[0].image}`} 
+                        src={`${product.images[0].image}`} 
                         alt={product.name} 
                         className="w-full h-full object-cover"
                         />

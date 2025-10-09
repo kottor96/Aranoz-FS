@@ -143,7 +143,7 @@ export default function SectionShop({ products, categories, cat }) {
                             <div className="bg-white rounded-lg overflow-hidden cursor-pointer hover:shadow-md transition-shadow duration-200">
                                 <div className="w-full h-64 flex items-center justify-center bg-gray-100">
                                     <img
-                                        src={`/storage/product/${product.images[0].image}`}
+                                        src={`${product.images[0].image}`}
                                         alt={product.name}
                                         className="max-h-full max-w-full object-contain"
                                     />
