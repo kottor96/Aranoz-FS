@@ -87,11 +87,11 @@ export default function SectionUser({ users }) {
                         {/* Edit */}
                         <td className="px-6 py-4 text-center">
                         <button
-                            type="button"
-                            onClick={() => router.get(route('admin.users.edit',user.id))}
-                            className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                          type="button"
+                          onClick={() => router.get(route('admin.users.edit',user.id))}
+                          className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
                         >
-                            Edit
+                          Edit
                         </button>
                         </td>
 

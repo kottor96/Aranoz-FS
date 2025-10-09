@@ -25,7 +25,9 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        $blogTag = Tag::all();
+        $blogCat = Blog_categorie::all();
+        return Inertia::render('Admin/Blog/Create',compact('blogCat','blogTag'));
     }
 
     /**
@@ -33,8 +35,48 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string',
+            'blog_categorie_id' => 'required|exists:blog_categories,id',
+            'description' => 'nullable|string',
+            'image_file' => 'nullable|image|max:2048',
+            'image_url' => 'nullable|url',
+            'tags' => 'nullable|array',
+            'tags.*' => 'exists:tags,id',
+        ]);
+
+        // Création du blog
+        $blog = Blog::create([
+            'title' => $data['title'],
+            'blog_categorie_id' => $data['blog_categorie_id'],
+            'description' => $data['description'] ?? null,
+            'user_id' => auth()->id(), // ou l'id que tu souhaites mettre
+        ]);
+
+        // Gestion de l'image
+        if ($request->hasFile('image_file')) {
+            $file = $request->file('image_file');
+            $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $file->storeAs('blog', $filename, 'public');
+
+            // Création de la relation image
+            $blog->image()->create([
+                'image' => "/storage/blog/$filename",
+            ]);
+        } elseif (!empty($data['image_url'])) {
+            $blog->image()->create([
+                'image' => $data['image_url'],
+            ]);
+        }
+
+        // Gestion des tags
+        if (!empty($data['tags'])) {
+            $blog->tags()->sync($data['tags']);
+        }
+
+        return redirect()->route('admin.blog.index')->with('success', 'Blog créé avec succès');
     }
+
 
     /**
      * Display the specified resource.
@@ -60,10 +102,8 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $blog = Blog::with('image', 'tags')->findOrFail($id);
         
-        // Validation
         $data = $request->validate([
             'title' => 'required|string',
             'blog_categorie_id' => 'required|exists:blog_categories,id',
@@ -74,8 +114,7 @@ class BlogController extends Controller
             'tags.*' => 'exists:tags,id',
         ]);
         
-        Log::info('Message de debug simple');
-        Log::info('Données du blog', ['blog' => $blog]);
+        
         // Mise à jour des champs principaux
         $blog->update([
             'title' => $data['title'],
