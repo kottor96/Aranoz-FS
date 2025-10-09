@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             // On garde l'id de la commande mais on ne supprime pas automatiquement l'item si la commande est supprimée
-            $table->foreignId('order_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('order_id')->constrained()->cascadeOnDelete();
 
             // On garde l'id du produit mais ne supprime pas l'item si le produit est supprimé
             $table->foreignId('product_id')->nullable()->constrained()->nullOnDelete();

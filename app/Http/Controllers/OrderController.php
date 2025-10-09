@@ -65,10 +65,15 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, $id)
     {
-        //
+        Order::findOrFail($id)->update([
+            'status' => $request->status,
+        ]);
+
+        return back();
     }
+
 
     /**
      * Remove the specified resource from storage.

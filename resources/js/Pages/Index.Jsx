@@ -6,6 +6,7 @@ import KadirSection from '@/Components/KadirSection.jsx';
 
 
 export default function Index({products, categories, maxSeconds, startTimestamp, updateInterval}) {
+    console.log(categories);
     
     const randomProduct = useMemo(() => [...products].sort(() => Math.random() - 0.5).splice(0,4), [products]);
     const [i,setI] = useState(0);
@@ -20,7 +21,6 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
         }
     }
     
-    const chaise = categories.find(cat => cat.name === 'Chaises');
 
     const [i2,setI2] = useState(0);
 
@@ -33,9 +33,9 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
             setI2(prev => prev - 8);
         }
     }
-
     
-
+    const catAvecProd = categories.filter(el => el.products.length > 0);
+    const categoriesAff = [...catAvecProd].sort(() => Math.random() - 0.5).splice(0,4);
 
     
 
@@ -60,53 +60,79 @@ export default function Index({products, categories, maxSeconds, startTimestamp,
                     <button onClick={()=>changeProduct('-')}>Previous</button>
                 </div>
             </section>
-            <section id='second_section'>
-                <div id='title2'>
+            <section id="second_section">
+                <div id="title2">
                     <h2>Feature Category</h2>
                 </div>
-                <div id='flex_home'>
-                    <div className='flex gap-4'>
-                        <div className='type2 relative'>
-                            <div className='absolute top-0 left-0 p-3'>
-                                <h5>{chaise.name}</h5>
-                                <p>{chaise.products[0]?.name}</p>
-                            </div>
-                            <div className='absolute bottom-0 right-0'>
-                                <img src={`storage/product/${chaise.products[0].images[0].image}`} alt={chaise.products[0].name} />
-                            </div>
+                <div id="flex_home">
+                    <div className="flex gap-4">
+                    {categoriesAff[0] && (
+                        <div className="type2 relative">
+                        <div className="absolute top-0 left-0 p-3">
+                            <h5>{categoriesAff[0].name}</h5>
+                            <p>{categoriesAff[0].products[0].name}</p>
                         </div>
-                        <div className='type1 relative'>
-                            <div className='absolute top-0 left-0 p-3'>
-                                <h5>{chaise.name}</h5>
-                                <p>{chaise.products[0]?.name}</p>
-                            </div>
-                            <div className='absolute bottom-0 right-0'>
-                                <img src={`storage/product/${chaise.products[0].images[0].image}`} alt={chaise.products[0].name} />
-                            </div>
+                        <div className="absolute bottom-0 right-0 h-1/2">
+                            <img
+                                src={`storage/product/${categoriesAff[0].products[0].images[0].image}`}
+                                alt={categoriesAff[0].products[0].name}
+                                className='h-full w-full' 
+                            />
                         </div>
+                        </div>
+                    )}
+                    {categoriesAff[1] && (
+                        <div className="type1 relative">
+                        <div className="absolute top-0 left-0 p-3">
+                            <h5>{categoriesAff[1].name}</h5>
+                            <p>{categoriesAff[1].products[0].name}</p>
+                        </div>
+                        <div className="absolute bottom-0 right-0 h-1/2">
+                            <img
+                                src={`storage/product/${categoriesAff[1].products[0].images[0].image}`}
+                                alt={categoriesAff[1].products[0].name}
+                                className='h-full w-full'
+                            />
+                        </div>
+                        </div>
+                    )}
                     </div>
-                    <div className='flex gap-4'>
-                        <div className='type1 relative'>
-                            <div className='absolute top-0 left-0 p-3'>
-                                <h5>{chaise.name}</h5>
-                                <p>{chaise.products[0]?.name}</p>
-                            </div>
-                            <div className='absolute bottom-0 right-0'>
-                                <img src={`storage/product/${chaise.products[0].images[0].image}`} alt={chaise.products[0].name} />
-                            </div>
+
+                    <div className="flex gap-4">
+                    {categoriesAff[2] && (
+                        <div className="type1 relative">
+                        <div className="absolute top-0 left-0 p-3">
+                            <h5>{categoriesAff[2].name}</h5>
+                            <p>{categoriesAff[2].products[0].name}</p>
                         </div>
-                        <div className='type2 relative'>
-                            <div className='absolute top-0 left-0 p-3'>
-                                <h5>{chaise.name}</h5>
-                                <p>{chaise.products[0]?.name}</p>
-                            </div>
-                            <div className='absolute bottom-0 right-0'>
-                                <img src={`storage/product/${chaise.products[0].images[0].image}`} alt={chaise.products[0].name} />
-                            </div>
+                        <div className="absolute bottom-0 right-0 h-1/2">
+                            <img
+                                src={`storage/product/${categoriesAff[2].products[0].images[0].image}`}
+                                alt={categoriesAff[2].products[0].name}
+                                className='h-full w-full'
+                            />
                         </div>
+                        </div>
+                    )}
+                    {categoriesAff[3] && (
+                        <div className="type2 relative">
+                        <div className="absolute top-0 left-0 p-3">
+                            <h5>{categoriesAff[3].name}</h5>
+                            <p>{categoriesAff[3].products[0].name}</p>
+                        </div>
+                        <div className="absolute bottom-0 right-0 h-1/2">
+                            <img
+                                src={`storage/product/${categoriesAff[3].products[0].images[0].image}`}
+                                alt={categoriesAff[3].products[0].name}
+                                className='h-full w-full'
+                            />
+                        </div>
+                        </div>
+                    )}
                     </div>
                 </div>
             </section>
+
             <section id='trois_section'>
                 <div className='flex gap-20'>
                     <h3 className='text-xl'>Asesome</h3>
