@@ -12,11 +12,16 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($cat=[])
+    public function index2($cat=[])
     {
         $products = Product::with('images','category')->withCount('likes')->get();
         $categories = Product_categorie::all();
         return Inertia::render('shop/Shop',compact('products','categories','cat'));
+    }
+    public function index()
+    {
+        $products = Product::with('category','images')->get();
+        return Inertia::render('Admin/Product/Index',compact('products'));
     }
 
     /**
@@ -24,7 +29,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Product_categorie::all();
+        return Inertia::render('Admin/Product/Create',compact('categories'));
     }
 
     /**
@@ -47,9 +53,11 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::with('category','images')->findOrFail($id);
+        $categories = Product_categorie::all();
+        return Inertia::render('Admin/Product/Edit',compact('product','categories'));
     }
 
     /**
@@ -63,8 +71,9 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        Product::findOrFail($id)->delete();
+        return back();
     }
 }

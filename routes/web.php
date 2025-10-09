@@ -23,7 +23,7 @@ Route::get('/', [PageController::class,'home'])->name('home');
 Route::get('/blog/{cat?}',[PageController::class,'blog'])->name('blog');
 Route::get('/blog/{id}/show',[PageController::class,'blogShow'])->name('blog.show');
 
-Route::get('/shop/{cat?}',[ProductController::class,'index'])->name('shop');
+Route::get('/shop/{cat?}',[ProductController::class,'index2'])->name('shop');
 Route::get('/product/{id}/show',[ProductController::class,'show'])->name('product.show');
 
 Route::get('/contact',[PageController::class,'contact'])->name('contact');
@@ -49,6 +49,7 @@ Route::middleware(AdminVerif::class)->resource('admin/order', OrderController::c
 
 Route::middleware(AdminVerif::class)->resource('admin/blog', BlogController::class)->names('admin.blog');
 
+Route::middleware(AdminVerif::class)->resource('admin/product', ProductController::class)->names('admin.product');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

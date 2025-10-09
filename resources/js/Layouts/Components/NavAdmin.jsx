@@ -110,7 +110,7 @@ export default function AdminNavbar() {
                             </button>
                             {openDropdown === "product" && (
                                 <div className="absolute mt-2 w-48 bg-white rounded-md shadow-md py-2 z-50">
-                                    {/* <Link href={route('admin.product')} className="block px-4 py-2 hover:bg-gray-100">Product</Link> */}
+                                    <Link href={route('admin.product.index')} className="block px-4 py-2 hover:bg-gray-100">Product</Link>
                                     {/* <Link href={route('admin.product.liked')} className="block px-4 py-2 hover:bg-gray-100">Product liked</Link> */}
                                 </div>
                             )}
