@@ -26,7 +26,7 @@ class OrderController extends Controller
     }
 
     public function index(){
-        $orders = Order::all();
+        $orders = Order::with('orderItems','user')->get();
         return Inertia::render('Admin/Order/Index',compact('orders'));
     }
 

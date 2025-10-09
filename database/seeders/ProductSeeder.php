@@ -128,6 +128,19 @@ class ProductSeeder extends Seeder
                     ['image' => 'product_9.png', 'type'=> 'image_right_side', 'product_id' => 9],
                 ]
             ],
+            [
+                'name' => 'Canaper Soleil Doux',
+                'description' => 'Un Canaper jaune confortable qui illumine vos moments de détente.',
+                'price' => 179.00,
+                'stock' => 18,
+                'color' => 'Jaune',
+                'images' => [
+                    ['image' => 'feature_4.png', 'type'=>'image_main', 'product_id' => 10],
+                    ['image' => 'feature_4.png', 'type'=> 'image_rear', 'product_id' => 10],
+                    ['image' => 'feature_4.png', 'type'=>'image_left_side', 'product_id' => 10],
+                    ['image' => 'feature_4.png', 'type'=> 'image_right_side', 'product_id' => 10],
+                ]
+            ],
         ];
 
         foreach ($products as $p) {

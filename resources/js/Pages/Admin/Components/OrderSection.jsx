@@ -2,15 +2,15 @@ import React from "react";
 import { router } from "@inertiajs/react";
 
 export default function PendingOrders({ orders }) {
-    // Filtrer uniquement les commandes pending
+  
     const pendingOrders = orders.filter(order => order.status === "pending");
-
-    // Fonction pour afficher les détails
+        console.log(orders);
+        
+    
     const showMore = (order) => {
         router.push("", { id: order.id });
     };
 
-    
     const completeOrder = (order) => {
         router.put("", { id: order.id, status: "completed" });
     };
@@ -24,7 +24,7 @@ export default function PendingOrders({ orders }) {
                     <thead className="bg-gray-50">
                     <tr>
                         <th className="px-4 py-2 border">User</th>
-                        <th className="px-4 py-2 border">Company</th>
+                        {/* <th className="px-4 py-2 border">Company</th> */}
                         <th className="px-4 py-2 border">Email</th>
                         <th className="px-4 py-2 border">Quantity</th>
                         <th className="px-4 py-2 border">Price</th>
@@ -34,16 +34,16 @@ export default function PendingOrders({ orders }) {
                     </tr>
                     </thead>
                     <tbody className="bg-white">
-                    {pendingOrders.map(order => (
+                    {pendingOrders.length ? pendingOrders.map(order => (
                         <tr key={order.id} className="text-center border-b">
                         <td className="px-4 py-2 border">{order.user.name}</td>
-                        <td className="px-4 py-2 border">{order.user.company}</td>
+                        {/* <td className="px-4 py-2 border">{order.user.company}</td> */}
                         <td className="px-4 py-2 border">{order.user.email}</td>
                         <td className="px-4 py-2 border">
-                            {order.items.reduce((acc, item) => acc + item.quantity, 0)}
+                            {/* {order.orderItems.reduce((acc, item) => acc + item.quantity, 0)} */}
                         </td>
                         <td className="px-4 py-2 border">
-                            ${order.items.reduce((acc, item) => acc + item.total_price, 0).toFixed(2)}
+                            {/* ${order.orderItems.reduce((acc, item) => acc + item.total_price, 0).toFixed(2)} */}
                         </td>
                         <td className="px-4 py-2 border">{order.order_number}</td>
                         <td className="px-4 py-2 border">{new Date(order.created_at).toLocaleDateString()}</td>
@@ -62,12 +62,9 @@ export default function PendingOrders({ orders }) {
                             </button>
                         </td>
                         </tr>
-                    ))}
-                    {pendingOrders.length === 0 && (
+                    )) : (
                         <tr>
-                        <td colSpan="8" className="py-4 text-center">
-                            No pending orders.
-                        </td>
+                        <td colSpan="8" className="py-4 text-center">No pending orders.</td>
                         </tr>
                     )}
                     </tbody>

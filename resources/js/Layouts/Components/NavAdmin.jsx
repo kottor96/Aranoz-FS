@@ -83,7 +83,7 @@ export default function AdminNavbar() {
                         </div>
 
                         {/* Orders */}
-                        {/* <Link href={route('admin.orders')} className="hover:text-red-500 transition">Orders</Link> */}
+                        <Link href={route('admin.order.index')} className="hover:text-red-500 transition">Orders</Link>
 
                         {/* Blog */}
                         <div className="relative" ref={dropdownRefs.blog}>

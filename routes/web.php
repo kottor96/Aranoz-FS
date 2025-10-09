@@ -27,7 +27,7 @@ Route::get('/product/{id}/show',[ProductController::class,'show'])->name('produc
 
 Route::get('/contact',[PageController::class,'contact'])->name('contact');
 
-Route::get('/orders/{numero?}', [OrderController::class, 'index'])->name('orders.index');
+Route::get('/orders/{numero?}', [OrderController::class, 'index2'])->name('orders.index');
 
 Route::post('/comments/store',[CommentController::class,'store'])->name('comment.store');
 
@@ -44,6 +44,7 @@ Route::middleware(AdminVerif::class)->resource('admin/contact', ContactControlle
 
 Route::middleware(AdminVerif::class)->resource('admin/user', UserController::class)->names('admin.users');
 
+Route::middleware(AdminVerif::class)->resource('admin/order', OrderController::class)->names('admin.order');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
