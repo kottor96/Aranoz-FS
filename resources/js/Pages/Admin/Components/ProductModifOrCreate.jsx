@@ -2,8 +2,12 @@ import { router } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function ProductSection({ type, product = {}, categories = [] }) {
-    const images = product.images || [];
-
+    const baseImages = [
+        { type: "image_main", label: "Main Picture", required: true },
+        { type: "image_rear", label: "Rear Picture", required: false },
+        { type: "image_left_side", label: "Left Side", required: false },
+        { type: "image_right_side", label: "Right Side", required: false },
+    ];
     const [form, setForm] = useState({
         name: product.name || "",
         price: product.price || "",
@@ -12,249 +16,198 @@ export default function ProductSection({ type, product = {}, categories = [] }) 
         color: product.color || "",
         category_id: product.category_id || "",
         description: product.description || "",
-        imageFiles: Array(4).fill(null),
-        imageUrls: Array(4).fill(""),
+        images: baseImages.map((img, i) => ({
+            type: img.type,
+            label: img.label,
+            required: img.required,
+            image: null,
+            sourceType: "",
+            preview: product.images?.[i]?.image || "",
+        })),
     });
-    
-    
 
-    const handleChange = (e, index, field) => {
-        const { value, files, name } = e.target;
-        if (field === "file") {
-        const newFiles = [...form.imageFiles];
-        newFiles[index] = files[0];
-        setForm({ ...form, imageFiles: newFiles });
-        } else if (field === "url") {
-        const newUrls = [...form.imageUrls];
-        newUrls[index] = value;
-        setForm({ ...form, imageUrls: newUrls });
-        } else {
-        setForm({ ...form, [name]: value });
-        }
+    const handleImageChange = (index, sourceType, e) => {
+        const value =
+            sourceType === "file" ? e.target.files?.[0] || null : e.target.value;
+        setForm((prev) => {
+            const images = [...prev.images];
+            images[index] = {
+                ...images[index],
+                image: value,
+                sourceType,
+                preview:
+                    sourceType === "file"
+                        ? URL.createObjectURL(value)
+                        : value,
+            };
+            return { ...prev, images };
+        });
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const data = new FormData();
-            data.append("name", form.name);
-            data.append("price", form.price);
-            data.append("stock", form.stock);
-            data.append("promo", form.promo);
-            data.append("color", form.color);
-            data.append("category_id", form.category_id);
-            data.append("description", form.description);
+        const mainImg = form.images[0];
 
-            form.imageFiles.forEach((file, i) => {
-                if (file) data.append(`imageFiles[${i}]`, file);
-            });
-
-            form.imageUrls.forEach((url, i) => {
-                if (url) data.append(`imageUrls[${i}]`, url);
-            });
-        // Submit selon le type
-        if (type === "create") {
-            router.post(route("admin.product.store"), data);
-        } else if (type === "update") {
-            router.post(route("admin.product.update", product.id), data);
+        // ⚠️ vérifier si on a une image principale ou une preview existante
+        if (!mainImg.image && !mainImg.preview) {
+            alert("⚠️ The main picture is required before submitting!");
+            return;
         }
+
+        const data = new FormData();
+        ["name", "price", "stock", "promo", "color", "category_id", "description"].forEach((field) =>
+            data.append(field, form[field])
+        );
+
+        form.images.forEach((img, i) => {
+            data.append(`images[${i}][type]`, img.type);
+            data.append(`images[${i}][format]`, img.sourceType);
+            data.append(`images[${i}][image]`, img.image);
+        });
+
+        if (type === "update") data.append("_method", "PUT");
+
+        const routeName =
+            type === "create"
+                ? route("admin.product.store")
+                : route("admin.product.update", product.id);
+
+        router.post(routeName, data);
     };
-
-
     return (
         <section className="max-w-5xl mx-auto my-10">
             <h2 className="text-2xl font-bold mb-6">
                 {type === "update"
-                ? `Products to modify: ${product.name} / prod n°: ${product.id}`
-                : "Create new product"}
+                    ? `Modify Product: ${product.name} (ID ${product.id})`
+                    : "Create New Product"}
             </h2>
 
-        
-            <form className="border border-black p-6 rounded-md max-w-3xl mx-auto mb-8 flex flex-col gap-6" onSubmit={handleSubmit}>
-                <div>
+            <form
+                onSubmit={handleSubmit}
+                className="border border-black p-6 rounded-md flex flex-col gap-6"
+            >
+                {/* --- Basic info --- */}
+                <input
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="Product Name"
+                    className="border-b border-gray-400 py-1"
+                />
+
+                <div className="grid grid-cols-3 gap-4">
+                    <input
+                        type="number"
+                        name="price"
+                        value={form.price}
+                        onChange={handleChange}
+                        placeholder="Price"
+                        className="border-b border-gray-400 py-1"
+                    />
+                    <input
+                        type="number"
+                        name="stock"
+                        value={form.stock}
+                        onChange={handleChange}
+                        placeholder="Stock"
+                        className="border-b border-gray-400 py-1"
+                    />
+                    <input
+                        type="number"
+                        name="promo"
+                        value={form.promo}
+                        onChange={handleChange}
+                        placeholder="Promo"
+                        className="border-b border-gray-400 py-1"
+                    />
+                </div>
+
+                {/* --- Images --- */}
+                {form.images.map((img, index) => (
+                    <div
+                        key={index}
+                        className={`grid grid-cols-2 gap-4 mb-6 border border-black p-4 rounded-md ${
+                            img.required ? "bg-gray-100" : ""
+                        }`}
+                    >
+                        <div className="flex flex-col">
+                            <input
+                                type="file"
+                                required={img.required && !img.preview}
+                                onChange={(e) => handleImageChange(index, "file", e)}
+                            />
+                            <label className="text-sm mt-1 font-semibold">
+                                {img.label} {img.required && !img.preview && <span className="text-red-600">*</span>}
+                            </label>
+                        </div>
+
+                        <div className="flex flex-col">
+                            <input
+                                type="url"
+                                placeholder="Image URL (optional)"
+                                onChange={(e) => handleImageChange(index, "url", e)}
+                            />
+                            <label className="text-sm mt-1">or URL</label>
+                        </div>
+
+                        {img.preview && (
+                            <div className="col-span-2 border rounded-md h-48 flex items-center justify-center bg-gray-50">
+                                <img
+                                    src={img.preview}
+                                    alt={img.type}
+                                    className="object-contain w-full h-full"
+                                />
+                            </div>
+                        )}
+                    </div>
+                ))}
+
+                {/* --- Other info --- */}
+                <div className="grid grid-cols-2 gap-4">
                     <input
                         type="text"
-                        name="name"
-                        value={form.name}
+                        name="color"
+                        value={form.color}
                         onChange={handleChange}
-                        className="w-full border-b border-gray-400 py-1"
-                        placeholder="Product Name"
+                        placeholder="Color"
+                        className="border-b border-gray-400 py-1"
                     />
-                    <label className="block mt-1 text-sm">Product Name</label>
+                    <select
+                        name="category_id"
+                        value={form.category_id}
+                        onChange={handleChange}
+                        className="border-b border-gray-400 py-1"
+                    >
+                        <option value="">Select Category</option>
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>
+                                {cat.name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
-                <div className="flex gap-4">
-                <div className="flex-1 flex flex-col">
-                    <input
-                    type="number"
-                    name="price"
-                    value={form.price}
+                <textarea
+                    name="description"
+                    value={form.description}
                     onChange={handleChange}
-                    className="border-b border-gray-400 py-1"
-                    />
-                    <label className="block mt-1 text-sm">Price</label>
-                </div>
-                <div className="flex-1 flex flex-col">
-                    <input
-                    type="number"
-                    name="stock"
-                    value={form.stock}
-                    onChange={handleChange}
-                    className="border-b border-gray-400 py-1"
-                    />
-                    <label className="block mt-1 text-sm">Stock quantity</label>
-                </div>
-                <div className="flex-1 flex flex-col">
-                    <input
-                    type="number"
-                    name="promo"
-                    value={form.promo}
-                    onChange={handleChange}
-                    className="border-b border-gray-400 py-1"
-                    />
-                    <label className="block mt-1 text-sm">Product Promo</label>
-                </div>
-                </div>
+                    placeholder="Description"
+                    className="w-full border border-gray-300 rounded-md p-2 h-32"
+                />
 
-            
-
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="border rounded-md h-48 flex items-center justify-center bg-gray-50">
-                    {images[0]?.image ? (
-                        <img
-                        src={images[0].image}
-                        alt="Main Picture"
-                        className="object-contain w-full h-full"
-                        />
-                    ) : (
-                        "Main Picture"
-                    )}
-                    </div>
-                    <div className="border rounded-md h-48 flex items-center justify-center bg-gray-50">
-                    {images[1]?.image ? (
-                        <img
-                        src={images[1].image}
-                        alt="Rear Picture"
-                        className="object-contain w-full h-full"
-                        />
-                    ) : (
-                        "Rear Picture"
-                    )}
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-8 border border-black p-4 rounded-md">
-                    <div className="flex flex-col">
-                        <input type="file" name="mainPicture_file" onChange={(e) => handleChange(e, 0, "file")} />
-                        <label className="text-sm mt-1">Main Picture File</label>
-                    </div>
-                    <div className="flex flex-col">
-                        <input type="url" name="mainPicture_url" onChange={(e) => handleChange(e, 0, "url")} placeholder="URL" />
-                        <label className="text-sm mt-1">Main Picture URL</label>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-8 border border-black p-4 rounded-md">
-                    <div className="flex flex-col">
-                        <input type="file" name="rearPicture_file" onChange={(e) => handleChange(e, 1, "file")} />
-                        <label className="text-sm mt-1">Rear Picture File</label>
-                    </div>
-                    <div className="flex flex-col">
-                        <input type="url" name="rearPicture_url" onChange={(e) => handleChange(e, 1, "url")} placeholder="URL" />
-                        <label className="text-sm mt-1">Rear Picture URL</label>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="border rounded-md h-48 flex items-center justify-center bg-gray-50">
-                        {images[2]?.image ? (
-                            <img
-                                src={images[2].image}
-                                alt="Left Side"
-                                className="object-contain w-full h-full"
-                            />
-                        ) : (
-                            "Left Side"
-                        )}
-                    </div>
-                    <div className="border rounded-md h-48 flex items-center justify-center bg-gray-50">
-                        {images[3]?.image ? (
-                            <img
-                                src={images[3].image}
-                                alt="Right Side"
-                                className="object-contain w-full h-full"
-                            />
-                        ) : (
-                            "Right Side"
-                        )}
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-8 border border-black p-4 rounded-md">
-                    <div className="flex flex-col">
-                        <input type="file" name="leftSide_file" onChange={(e) => handleChange(e, 2, "file")} />
-                        <label className="text-sm mt-1">Left Side File</label>
-                    </div>
-                    <div className="flex flex-col">
-                        <input type="url" name="leftSide_url" onChange={(e) => handleChange(e, 2, "url")} placeholder="URL" />
-                        <label className="text-sm mt-1">Left Side URL</label>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-8 border border-black p-4 rounded-md">
-                    <div className="flex flex-col">
-                        <input type="file" name="rightSide_file" onChange={(e) => handleChange(e, 3, "file")} />
-                        <label className="text-sm mt-1">Right Side File</label>
-                    </div>
-                    <div className="flex flex-col">
-                        <input type="url" name="rightSide_url" onChange={(e) => handleChange(e, 3, "url")} placeholder="URL" />
-                        <label className="text-sm mt-1">Right Side URL</label>
-                    </div>
-                </div>
-
-                <div className="mb-8">
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <input
-                                type="text"
-                                name="color"
-                                value={form.color}
-                                onChange={handleChange}
-                                placeholder="Product Color"
-                                className="w-full border-b border-gray-400 py-1"
-                            />
-                            <label className="block mt-1 text-sm">Product Color</label>
-                        </div>
-                        <div>
-                            <select
-                                name="category_id"
-                                value={form.category_id}
-                                onChange={handleChange}
-                                className="w-full border-b border-gray-400 py-1"
-                            >
-                                <option value="">Select category</option>
-                                {categories.map((cat) => (
-                                    <option key={cat.id} value={cat.id}>{cat.name}</option>
-                                ))}
-                            </select>
-                            <label className="block mt-1 text-sm">Categories</label>
-                        </div>
-                    </div>
-
-                    <div className="mb-4">
-                        <textarea
-                            name="description"
-                            value={form.description}
-                            onChange={handleChange}
-                            className="w-full border border-gray-300 rounded-md p-2 h-32"
-                            placeholder="Additional Information"
-                        />
-                        <label className="block mt-1 text-sm">Additional Information</label>
-                    </div>
-                    <button type="submit" className="px-6 py-2 bg-black text-white rounded-md mt-4">
-                        {type === "update" ? "Update Product" : "Create Product"}
-                    </button>
-                </div>
+                <button
+                    type="submit"
+                    className="px-6 py-2 bg-black text-white rounded-md mt-4"
+                >
+                    {type === "update" ? "Update Product" : "Create Product"}
+                </button>
             </form>
         </section>
     );

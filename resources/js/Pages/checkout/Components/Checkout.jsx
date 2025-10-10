@@ -2,7 +2,6 @@ import { usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Checkout({}) {
-    // default billing values from user's message
     const {auth} = usePage().props    
     const [billing, setBilling] = useState({
         firstname: "",
@@ -18,7 +17,7 @@ export default function Checkout({}) {
     const cart = auth.panier
     const [coupon, setCoupon] = useState("");
     const [discount, setDiscount] = useState(0);
-    const [paymentMethod, setPaymentMethod] = useState("paypal"); // default paypal
+    const [paymentMethod, setPaymentMethod] = useState("paypal"); 
     const [loading, setLoading] = useState(false);
 
     const totalPrice = cart.reduce((acc, item) => acc + (item.product.discountPrice || item.product.price) * item.quantity, 0);
@@ -36,10 +35,9 @@ export default function Checkout({}) {
         }
 
         if (coupon === "PROMO50") {
-        // traduction en pourcentage approximatif si on veut un montant fixe :
-        const pct = totalPrice > 0 ? Math.min(1, 50 / totalPrice) : 0;
-        setDiscount(pct);
-        return alert("Coupon PROMO50 appliqué — 50€ de réduction (ou équivalent) !");
+          const pct = totalPrice > 0 ? Math.min(1, 50 / totalPrice) : 0;
+          setDiscount(pct);
+          return alert("Coupon PROMO50 appliqué — 50€ de réduction (ou équivalent) !");
         }
 
         setDiscount(0);
@@ -64,19 +62,15 @@ export default function Checkout({}) {
 
     setLoading(true);
 
-    // Fake handling (no background jobs or real redirects)
     setTimeout(() => {
       setLoading(false);
       if (paymentMethod === "paypal") {
-        // Simuler redirection vers PayPal
         alert(
           `FAKE: redirection vers PayPal\n\nMontant à payer : ${finalPrice.toFixed(
             2
           )} €\nEmail : ${billing.email}`
         );
-        // ici tu pourrais router vers une page /api/paypal/create-payment si réel
       } else if (paymentMethod === "check") {
-        // Simuler instructions pour paiement par chèque
         alert(
           `COMMANDE PLACÉE (fake) — Paiement par chèque\n\nMontant : ${finalPrice.toFixed(
             2
@@ -190,7 +184,6 @@ export default function Checkout({}) {
           </div>
         </div>
 
-        {/* Payment method */}
         <div className="mt-6">
           <h3 className="font-semibold mb-2">Payment method</h3>
 

@@ -50,32 +50,36 @@ class ProductController extends Controller
             'name','color','description','price','stock','category_id','promo'
         ]));
 
-        $types = ['image_main','image_rear','image_left_side','image_right_side'];
+        // Gestion des images
+        if ($request->has('images')) {
+            foreach ($request->images as $index => $img) {
+                $type = $img['type'] ?? null;
+                $format = $img['format'] ?? null;
+                $path = null;
 
-        foreach ($types as $i => $type) {
-            $fileKey = "image_files.$i";
-            $urlKey  = "image_urls.$i";
+                if (!$type || !$format) continue;
 
-            $imageData = ['product_id' => $product->id, 'type' => $type];
+                if ($format === 'file' && isset($img['image'])) {
+                    $file = $img['image'];
+                    $filename = Str::slug($product->name) . "_{$type}_" . time() . '.' . $file->getClientOriginalExtension();
+                    $path = $file->storeAs('product', $filename, 'public');
+                    $pathF = "/storage/{$path}";
+                } elseif ($format === 'url' && !empty($img['image'])) {
+                    $pathF = $img['image'];
+                }
 
-            // Priorité au fichier
-            if ($request->hasFile($fileKey) && $request->file($fileKey)) {
-                $file = $request->file($fileKey);
-                $filename = Str::slug($product->name) . "_{$type}_" . time() . '.' . $file->getClientOriginalExtension();
-                $imageData['image'] = $file->storeAs('product', $filename, 'public');
-            } elseif (!empty($request->input($urlKey))) {
-                $imageData['image'] = $request->input($urlKey);
-            } else {
-                continue; 
+                if (!$pathF) continue;
+
+                Image_product::create([
+                    'product_id' => $product->id,
+                    'type' => $type,
+                    'image' => $pathF,
+                ]);
             }
-
-            Image_product::create($imageData);
         }
-
         return redirect()->route('admin.product.index')
-                        ->with('success', 'Product created successfully.');
+                     ->with('success', 'Product created successfully.');
     }
-
 
 
 
@@ -101,58 +105,56 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+   public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'price' => 'required|numeric|min:0',
-        //     'stock' => 'required|integer|min:0',
-        //     'color' => 'nullable|string|max:50',
-        //     'description' => 'nullable|string',
-        //     'category_id' => 'nullable|exists:product_categories,id',
-        //     'promo' => 'nullable|numeric|min:0',
-        //     'image_files.*' => 'nullable|file|image|max:5120',
-        //     'image_urls.*' => 'nullable|url',
-        //     'image_types.*' => 'required|string', // main, rear, left, right
-        // ]);
-
-        // Update du produit
+        // Récupération du produit
         $product = Product::findOrFail($id);
+
+        // Mise à jour des infos du produit
         $product->update($request->only([
             'name','color','description','price','stock','category_id','promo'
         ]));
 
         // Gestion des images
-        if ($request->has('image_files') || $request->has('image_urls')) {
-            $files = $request->file('image_files', []);
-            $urls = $request->input('image_urls', []);
-            $types = $request->input('image_types', []);
+        if ($request->has('images')) {
+            foreach ($request->images as $index => $img) {
+                $type = $img['type'] ?? null;
+                $format = $img['format'] ?? null;
+                $pathF = null;
 
-            foreach ($types as $i => $type) {
-                $imageData = ['product_id' => $product->id, 'type' => $type];
+                if (!$type || !$format) continue;
 
-                if (isset($files[$i]) && $files[$i]) {
-                    $imageData['image'] = $files[$i]->store('product', 'public');
-                } elseif (isset($urls[$i]) && $urls[$i]) {
-                    $imageData['image'] = $urls[$i];
-                } else {
-                    continue;
+                if ($format === 'file' && isset($img['image'])) {
+                    $file = $img['image'];
+                    $filename = Str::slug($product->name) . "_{$type}_" . time() . '.' . $file->getClientOriginalExtension();
+                    $storedPath = $file->storeAs('product', $filename, 'public');
+                    $pathF = "/storage/{$storedPath}";
+                } elseif ($format === 'url' && !empty($img['image'])) {
+                    $pathF = $img['image'];
                 }
 
-                // Mise à jour si existe déjà pour ce type, sinon création
+                if (!$pathF) continue;
+
+                // Mise à jour si l'image de ce type existe déjà
                 $existing = Image_product::where('product_id', $product->id)
                                         ->where('type', $type)
                                         ->first();
                 if ($existing) {
-                    $existing->update($imageData);
+                    $existing->update(['image' => $pathF]);
                 } else {
-                    Image_product::create($imageData);
+                    Image_product::create([
+                        'product_id' => $product->id,
+                        'type' => $type,
+                        'image' => $pathF,
+                    ]);
                 }
             }
         }
 
-        return redirect()->route('admin.product.index')->with('success', 'Product updated successfully.');
+        return redirect()->route('admin.product.index')
+                        ->with('success', 'Product updated successfully.');
     }
+
 
 
     /**

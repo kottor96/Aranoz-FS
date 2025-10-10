@@ -101,9 +101,17 @@ export default function Navbar() {
                         <div className="relative" ref={dropdownRefs.user}>
                             <button
                                 onClick={() => toggleDropdown("user")}
-                                className="p-2 rounded-full hover:bg-gray-100 transition"
+                                className="p-2 h-32 w-32 rounded-full hover:bg-gray-100 transition"
                             >
-                                <FiUser size={20} />
+                                {auth.user?.avatar ? (
+                                    <img
+                                    src={auth.user.avatar.image}
+                                    alt="User Avatar"
+                                    className="w- h-full object-cover"
+                                    />
+                                ) : (
+                                    <FiUser size={20} className="w-full h-full text-gray-400" />
+                                )}
                             </button>
                             {openDropdown === "user" && (
                                 <div className="absolute right-0 mt-2 w-48 text-white bg-red-custom shadow-lg rounded-md py-2 z-50">

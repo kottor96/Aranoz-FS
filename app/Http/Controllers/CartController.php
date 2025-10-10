@@ -18,7 +18,7 @@ class CartController extends Controller
     {
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'quantity' => 'nullable|integer|min:0' // autoriser 0 pour suppression
+            'quantity' => 'nullable|integer|min:0' 
         ]);
 
         $cart = Panier::firstOrCreate(

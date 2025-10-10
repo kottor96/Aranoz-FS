@@ -62,7 +62,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
     Route::get('/favorite/toggle', [FavoriteController::class, 'toggle'])->name('favorite.toggle');
     Route::get('/checkout/validate', [CartController::class, 'checkout'])->name('checkout.index');
+     Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/checkout/success', [OrderController::class, 'success'])->name('checkout.success');
 });
+
 
 
 require __DIR__.'/auth.php';
