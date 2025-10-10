@@ -11,6 +11,9 @@ class CartController extends Controller
     public function index(){
         return Inertia::render('Panier/Index');
     }
+    public function checkout(){
+        return Inertia::render('checkout/Index');
+    }
     public function store(Request $request)
     {
         $request->validate([

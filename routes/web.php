@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
     Route::get('/favorite/toggle', [FavoriteController::class, 'toggle'])->name('favorite.toggle');
+    Route::get('/checkout/validate', [CartController::class, 'checkout'])->name('checkout.index');
 });
 
 

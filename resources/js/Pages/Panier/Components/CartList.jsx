@@ -12,18 +12,11 @@ export default function CartList() {
         }
 
         const newQuantity = item.quantity + delta;
-
-        if (newQuantity <= 0) {
-            // Supprimer le produit
-            router.post(route("cart.add", item.id), { preserveScroll: true });
-            setCartItems(prev => prev.filter(ci => ci.id !== item.id));
-        } else {
-            // Mettre à jour la quantité
-            router.post(route("cart.add", item.id), { quantity: newQuantity }, { preserveScroll: true });
-            setCartItems(prev =>
-                prev.map(ci => (ci.id === item.id ? { ...ci, quantity: newQuantity } : ci))
-            );
-        }
+            router.post(
+                route("cart.add"),
+                    { product_id: item.id, quantity:newQuantity },
+                    { preserveScroll: true }
+                );
     };
 
     // Calculer le total

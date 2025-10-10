@@ -131,23 +131,25 @@ export default function ProductShow({ product }) {
                 </div>
                 <hr />
                 <p className="text-gray-700">{product.description}</p>
+                {auth?.user&&(
+                    <>
+                        <div className="flex items-center gap-2 mt-4">
+                            <button onClick={decrementQuantity} className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">-</button>
+                            <span className="px-3 py-1 border rounded">{quantity}</span>
+                            <button onClick={incrementQuantity} className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">+</button>
+                        </div>
 
-                <div className="flex items-center gap-2 mt-4">
-                    <button onClick={decrementQuantity} className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">-</button>
-                    <span className="px-3 py-1 border rounded">{quantity}</span>
-                    <button onClick={incrementQuantity} className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">+</button>
-                </div>
-
-                {/* Ajouter ou Modifier */}
-                <button
-                    onClick={handleAddToCart}
-                    className={`mt-4 flex items-center gap-2 px-4 py-2 rounded-lg transition ${
-                        inCart ? "bg-green-600 text-white hover:bg-green-700" : "bg-blue-600 text-white hover:bg-blue-700"
-                    }`}
-                >
-                    <ShoppingCart size={18} />
-                    {inCart ? "Modifier la quantité" : "Ajouter au panier"}
-                </button>
+                        <button
+                            onClick={handleAddToCart}
+                            className={`mt-4 flex items-center gap-2 px-4 py-2 rounded-lg transition ${
+                                inCart ? "bg-green-600 text-white hover:bg-green-700" : "bg-blue-600 text-white hover:bg-blue-700"
+                            }`}
+                        >
+                            <ShoppingCart size={18} />
+                            {inCart ? "Modifier la quantité" : "Ajouter au panier"}
+                        </button>
+                    </>
+                )}
             </div>
         </section>
     );
