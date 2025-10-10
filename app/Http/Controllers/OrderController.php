@@ -48,68 +48,50 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'billing.firstname' => 'required|string|max:255',
-            'billing.lastname'  => 'required|string|max:255',
-            'billing.email'     => 'required|email|max:255',
-            'billing.phone'     => 'required|string|max:50',
-            'billing.address'   => 'required|string|max:255',
-            'billing.city'      => 'required|string|max:255',
-            'billing.postcode'  => 'required|string|max:20',
-            'billing.country'   => 'required|string|max:100',
-            'paymentMethod'     => 'required|string|in:paypal,check',
-        ]);
+        $user = auth()->user();
+        $panierItems = $user->paniers()->withPivot('quantity')->get();
 
-        $user = $request->user();
-
-        $cartItems = Panier::with('product')->where('user_id', $user->id)->get();
-
-        if ($cartItems->isEmpty()) {
-            return back()->withErrors(['cart' => 'Ton panier est vide.']);
+        if ($panierItems->isEmpty()) {
+            return redirect()->back()->with('error', 'Ton panier est vide.');
         }
 
-        DB::transaction(function () use ($request, $user, $cartItems) {
-
-            $billing = Billing_detail::create([
-                'first_name'   => $request->billing['firstname'],
-                'last_name'    => $request->billing['lastname'],
-                'company'      => $request->billing['company'] ?? null,
-                'phone_number' => $request->billing['phone'],
-                'email'        => $request->billing['email'],
-                'address'      => $request->billing['address'],
-                'city'         => $request->billing['city'],
-                'zip'          => $request->billing['postcode'],
-                'country'      => $request->billing['country'],
-            ]);
-
+        DB::transaction(function() use ($user, $panierItems, $request) {
+            // Créer la commande
             $order = Order::create([
-                'user_id'        => $user->id,
-                'billing_detail_id' => $billing->id,
-                'payment_method' => $request->paymentMethod,
-                'total_price'    => $cartItems->sum(function($item) {
-                    return ($item->product->discountPrice ?? $item->product->price) * $item->quantity;
-                }),
+                'user_id' => $user->id,
+                'total_price' => $panierItems->sum(fn($item) => ($item->discountPrice ?? $item->price) * $item->pivot->quantity),
+                'payment_method' => $request->payment_method ?? 'paypal',
             ]);
 
-            foreach ($cartItems as $item) {
+            // Créer les order_items
+            foreach ($panierItems as $item) {
                 Order_item::create([
-                    'order_id'      => $order->id,
-                    'product_id'    => $item->product->id,
-                    'product_name'  => $item->product->name,
-                    'unit_price'    => $item->product->discountPrice ?? $item->product->price,
-                    'quantity'      => $item->quantity,
-                    'total_price'   => ($item->product->discountPrice ?? $item->product->price) * $item->quantity,
-                    'image_main'    => $item->product->image_main ?? null,
-                    'image_rear'    => $item->product->image_rear ?? null,
-                    'image_left_side' => $item->product->image_left_side ?? null,
-                    'image_right_side'=> $item->product->image_right_side ?? null,
-                    'color'         => $item->product->color ?? null,
-                    'description'   => $item->product->description ?? null,
-                    'promo_id'      => $item->product->promo_id ?? null,
+                    'order_id' => $order->id,
+                    'product_id' => $item->id,
+                    'product_name' => $item->name,
+                    'unit_price' => $item->discountPrice ?? $item->price,
+                    'quantity' => $item->pivot->quantity,
+                    'total_price' => ($item->discountPrice ?? $item->price) * $item->pivot->quantity,
+                    'image_main' => $item->image_main ?? null,
+                    'color' => $item->color ?? null,
+                    'description' => $item->description ?? null,
                 ]);
             }
 
-            Panier::where('user_id', $user->id)->delete();
+            // Enregistrer les billing details
+            Billing_detail::create([
+                'first_name' => $request->firstname,
+                'last_name' => $request->lastname,
+                'company' => $request->company,
+                'phone_number' => $request->phone,
+                'email' => $request->email,
+                'adress' => $request->address,
+                'city' => $request->city,
+                'zip' => $request->postcode,
+                'country_id' => $request->country,
+            ]);
+
+            Panier::where('user_id', auth()->id())->delete();
         });
 
         return redirect()->route('checkout.success')->with('success', 'Commande passée avec succès !');

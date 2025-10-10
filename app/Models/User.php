@@ -64,7 +64,7 @@ class User extends Authenticatable
     public function paniers()
     {
         return $this->belongsToMany(Product::class, 'paniers', 'user_id', 'product_id')
-                    ->withPivot('quantity') // si tu as une colonne quantity
+                    ->withPivot('quantity') 
                     ->withTimestamps();
     }
     public function blog(){
