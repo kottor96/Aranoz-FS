@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index2($cat=[])
     {
-        $products = Product::with('images','category')->withCount('likes')->get();
+        $products = Product::with('likes','images','category')->withCount('likes')->get();
         $categories = Product_categorie::all();
         return Inertia::render('shop/Shop',compact('products','categories','cat'));
     }

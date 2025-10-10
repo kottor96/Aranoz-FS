@@ -27,9 +27,13 @@ class Product extends Model
     public function category(){
         return $this->belongsTo(Product_categorie::class,'category_id');
     }
-    public function paniers(){
-        return $this->hasMany(Panier::class);
+    public function paniers()
+    {
+        return $this->belongsToMany(User::class, 'paniers', 'product_id', 'user_id')
+                    ->withPivot('quantity')
+                    ->withTimestamps();
     }
+
     public function images(){
         return $this->hasMany(Image_product::class);
     }
